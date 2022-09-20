@@ -9,7 +9,7 @@ export const SectionContainer = styled.div`
 export const SectionTitleContainer = styled.div`
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    gap: 1rem;
     align-items: center;
     margin-top: 1rem;
 `;
@@ -27,7 +27,7 @@ export const SectionScroller = styled.div`
     overflow-x: auto;
     overflow-y: hidden;
     margin-top: 0.5rem;
-    scroll-snap-type: y mandatory;
+    scroll-snap-type: x mandatory;
     &::-webkit-scrollbar {
         height: 5px;
     }

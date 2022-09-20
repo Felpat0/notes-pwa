@@ -28,7 +28,6 @@ export const StyledInput = styled.input<{ borderless?: boolean }>`
             background-color: ${themeColors.inputBackground};
             border: 1px solid black;
             border-radius: 10px;
-            padding: 0 0.5rem;
             &:focus {
                 outline: none;
             }
@@ -42,4 +41,5 @@ export const InputIconContainer = styled.div`
     right: -0.5rem;
     width: 18px;
     height: 18px;
+    padding-right: 1rem;
 `;

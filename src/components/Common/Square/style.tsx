@@ -8,7 +8,7 @@ export const SquareContainer = styled.div`
     align-items: center;
     background-size: cover;
     background-position: center;
-    height: calc(8vw + 5.5rem);
+    height: calc(6vw + 6rem);
     border-radius: 15px;
     aspect-ratio: 16/9;
     scroll-snap-align: start;

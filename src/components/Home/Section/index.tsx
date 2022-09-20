@@ -7,8 +7,8 @@ import {
 } from "./style";
 
 type Props = {
-    title: string;
-    children: any;
+    title?: string;
+    children?: any;
     style?: CSSProperties;
     titleStyle?: CSSProperties;
     scrollerStyle?: CSSProperties;

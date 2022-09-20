@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { themeColors } from "../../../assets/theme";
 
 export const TopBarContainer = styled.div`
+    background-color: ${themeColors.background};
     position: fixed;
     display: flex;
     flex-direction: row;
@@ -9,6 +10,7 @@ export const TopBarContainer = styled.div`
     justify-content: center;
     height: 60px;
     width: 100vw;
+    z-index: 1;
 `;
 
 export const Title = styled.p`

@@ -5,4 +5,7 @@ export const en = {
     home: {
         greeting: "Hey,",
     },
+    noteScreen: {
+        noteTitle: "Note's title",
+    },
 };
