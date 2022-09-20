@@ -20,4 +20,5 @@ export const Title = styled.p`
     margin-left: 1rem;
     padding: 0;
     color: ${themeColors.text2};
+    cursor: pointer;
 `;

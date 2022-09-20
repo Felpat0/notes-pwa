@@ -10,8 +10,28 @@ import { ReactComponent as SearchIcon } from "./../../assets/icons/SearchIcon.sv
 import { ReactComponent as AddIcon } from "./../../assets/icons/AddIcon.svg";
 import { Section } from "../../components/Home/Section";
 import { ProjectsElement } from "../../components/Common/ProjectsElement";
+import { getNotes } from "../../utils/storage";
+import { useCallback, useMemo } from "react";
+import { Note } from "../../types";
+import { NoteElement } from "../../components/Common/NoteElement";
+import { useNavigate } from "react-router-dom";
+import { getNoteRoute } from "../../utils/routing";
 
 export const Home: React.FC = () => {
+    const navigate = useNavigate();
+    const notes = useMemo(() => getNotes(), []);
+
+    const handleNoteClick = useCallback(
+        (note: Note) => {
+            navigate(getNoteRoute(note.id));
+        },
+        [navigate]
+    );
+
+    const handleNewNoteClick = useCallback(() => {
+        navigate(getNoteRoute("new"));
+    }, [navigate]);
+
     return (
         <HomeContainer>
             <div>
@@ -38,9 +58,22 @@ export const Home: React.FC = () => {
             <ProjectsElement style={{ marginTop: "1.5rem" }} />
             <Section
                 title={"Notes"}
-                rightIcon={<AddIcon style={{ cursor: "pointer" }} />}
+                rightIcon={
+                    <AddIcon
+                        style={{ cursor: "pointer" }}
+                        onClick={handleNewNoteClick}
+                    />
+                }
             >
-                <NoteElementsContainer></NoteElementsContainer>
+                <NoteElementsContainer>
+                    {notes.map((note) => (
+                        <NoteElement
+                            note={note}
+                            key={note.id}
+                            onClick={handleNoteClick}
+                        />
+                    ))}
+                </NoteElementsContainer>
             </Section>
         </HomeContainer>
     );

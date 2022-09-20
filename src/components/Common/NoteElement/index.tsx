@@ -10,10 +10,11 @@ import {
 type Props = {
     note: Note;
     project?: Project;
+    onClick?: (note: Note) => void;
 };
-export const NoteElement: React.FC<Props> = ({ note, project }) => {
+export const NoteElement: React.FC<Props> = ({ note, project, onClick }) => {
     return (
-        <NoteElementContainer>
+        <NoteElementContainer onClick={() => onClick(note)}>
             <NoteElementTitlesContainer>
                 <NoteElementTitle>{note.title}</NoteElementTitle>
                 {project && (
