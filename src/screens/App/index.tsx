@@ -10,10 +10,10 @@ function App() {
         <Provider store={store}>
             <BrowserRouter>
                 <Routes>
-                    <Route path={"/"} element={<AppLayout />}>
-                        <Route path={"/"} element={<Home />} />
+                    <Route path={"/notes-pwa"} element={<AppLayout />}>
+                        <Route path={"/notes-pwa/"} element={<Home />} />
                         <Route
-                            path={"/note/:noteId"}
+                            path={"/notes-pwa/note/:noteId"}
                             element={<NoteScreen />}
                         />
                     </Route>

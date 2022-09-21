@@ -5,11 +5,12 @@ import { strings } from "../../../localization/strings";
 import { themeColors } from "../../../assets/theme";
 import { useCallback } from "react";
 import { useNavigate } from "react-router-dom";
+import { formatPath } from "../../../utils/routing";
 
 export const TopBar: React.FC = () => {
     const navigate = useNavigate();
     const handleTitleClick = useCallback(() => {
-        navigate("/");
+        navigate(formatPath("/"));
     }, [navigate]);
     return (
         <TopBarContainer>
