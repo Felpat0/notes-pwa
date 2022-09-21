@@ -10,16 +10,24 @@ import { ReactComponent as SearchIcon } from "./../../assets/icons/SearchIcon.sv
 import { ReactComponent as AddIcon } from "./../../assets/icons/AddIcon.svg";
 import { Section } from "../../components/Home/Section";
 import { ProjectsElement } from "../../components/Common/ProjectsElement";
-import { getNotes } from "../../utils/storage";
-import { useCallback, useMemo } from "react";
+import { deleteNote, getNotes, getTodaysNotes } from "../../utils/storage";
+import { useCallback, useState } from "react";
 import { Note } from "../../types";
 import { NoteElement } from "../../components/Common/NoteElement";
 import { useNavigate } from "react-router-dom";
 import { getNoteRoute } from "../../utils/routing";
+import { Square } from "../../components/Common/Square";
+import moment from "moment";
 
 export const Home: React.FC = () => {
     const navigate = useNavigate();
-    const notes = useMemo(() => getNotes(), []);
+    const [notes, setNotes] = useState(getNotes());
+    const [todayNotes, setTodayNotes] = useState<Note[]>(getTodaysNotes());
+
+    const updateNotes = useCallback(() => {
+        setNotes(getNotes());
+        setTodayNotes(getTodaysNotes());
+    }, []);
 
     const handleNoteClick = useCallback(
         (note: Note) => {
@@ -31,6 +39,14 @@ export const Home: React.FC = () => {
     const handleNewNoteClick = useCallback(() => {
         navigate(getNoteRoute("new"));
     }, [navigate]);
+
+    const handleDeleteNote = useCallback(
+        (note: Note) => {
+            deleteNote(note.id);
+            updateNotes();
+        },
+        [updateNotes]
+    );
 
     return (
         <HomeContainer>
@@ -54,7 +70,21 @@ export const Home: React.FC = () => {
                     paddingBottom: "calc(3rem - 3vh)",
                     gap: "1.5rem",
                 }}
-            ></Section>
+            >
+                {todayNotes.map((note) => (
+                    <Square
+                        text={note.title}
+                        subText={
+                            note.showDate
+                                ? moment(note.showDate).format("DD/MM/YYYY")
+                                : ""
+                        }
+                        onClick={() => handleNoteClick(note)}
+                        style={{ cursor: "pointer" }}
+                        key={note.id}
+                    />
+                ))}
+            </Section>
             <ProjectsElement style={{ marginTop: "1.5rem" }} />
             <Section
                 title={"Notes"}
@@ -71,6 +101,7 @@ export const Home: React.FC = () => {
                             note={note}
                             key={note.id}
                             onClick={handleNoteClick}
+                            onDelete={handleDeleteNote}
                         />
                     ))}
                 </NoteElementsContainer>

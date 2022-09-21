@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { themeColors } from "../../../assets/theme";
-import { ReactComponent as OptionsIcon } from "./../../../assets/icons/OptionsIcon.svg";
+import { ReactComponent as TrashIcon } from "./../../../assets/icons/TrashIcon.svg";
 
 export const NoteElementContainer = styled.div`
     display: flex;
@@ -43,8 +43,10 @@ export const NoteElementProject = styled.p`
     padding: 0;
 `;
 
-export const NoteElementOptionIcon = styled(OptionsIcon)`
+export const NoteElementDeleteIcon = styled(TrashIcon)`
     padding-right: 1rem;
     stroke: ${themeColors.text1};
     padding-right: 1.5rem;
+    height: 28px;
+    cursor: pointer;
 `;

@@ -1,7 +1,7 @@
 import { Note, Project } from "../../../types";
 import {
     NoteElementContainer,
-    NoteElementOptionIcon,
+    NoteElementDeleteIcon,
     NoteElementProject,
     NoteElementTitle,
     NoteElementTitlesContainer,
@@ -11,8 +11,18 @@ type Props = {
     note: Note;
     project?: Project;
     onClick?: (note: Note) => void;
+    onDelete?: (note: Note) => void;
 };
-export const NoteElement: React.FC<Props> = ({ note, project, onClick }) => {
+export const NoteElement: React.FC<Props> = ({
+    note,
+    project,
+    onClick,
+    onDelete,
+}) => {
+    const handleDeleteClick = (e: React.MouseEvent) => {
+        e.stopPropagation();
+        onDelete?.(note);
+    };
     return (
         <NoteElementContainer onClick={() => onClick(note)}>
             <NoteElementTitlesContainer>
@@ -21,12 +31,9 @@ export const NoteElement: React.FC<Props> = ({ note, project, onClick }) => {
                     <NoteElementProject>{project.name}</NoteElementProject>
                 )}
             </NoteElementTitlesContainer>
-            <NoteElementOptionIcon
-                style={{
-                    cursor: "pointer",
-                    paddingRight: "1rem",
-                }}
-            />
+            {handleDeleteClick && (
+                <NoteElementDeleteIcon onClick={handleDeleteClick} />
+            )}
         </NoteElementContainer>
     );
 };

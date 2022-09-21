@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
+import moment from "moment";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import { useSelector } from "react-redux";
@@ -6,26 +7,31 @@ import { State } from "../../types/redux";
 import {
     NoteScreenContainer,
     NoteScreenEditorContainer,
+    ShowDateInput,
     TitleInput,
 } from "./style";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { strings } from "../../localization/strings";
 import { getNote, getOrCreateEmptyNote, updateNote } from "../../utils/storage";
 import { Note } from "../../types";
+import { getNoteRoute } from "../../utils/routing";
 
 export const NoteScreen: React.FC = () => {
     const { noteId } = useParams();
+    const navigate = useNavigate();
     const notesReducer = useSelector((state: State) => state.notes);
 
     const [currentNote, setCurrentNote] = useState<Note>();
 
     useEffect(() => {
         if (noteId === "new") {
-            setCurrentNote(getOrCreateEmptyNote(noteId));
+            const newNote = getOrCreateEmptyNote(noteId);
+            setCurrentNote(newNote);
+            navigate(getNoteRoute(newNote.id));
         } else {
             setCurrentNote(getNote(parseInt(noteId)));
         }
-    }, [noteId, notesReducer.notes]);
+    }, [noteId, notesReducer.notes, navigate]);
 
     const handleNoteChange = useCallback((key: string, value: any) => {
         setCurrentNote((prev) => {
@@ -48,6 +54,30 @@ export const NoteScreen: React.FC = () => {
                             handleNoteChange("title", e.target.value)
                         }
                         placeholder={strings.noteScreen.noteTitle}
+                        type={"text"}
+                        borderless
+                    />
+                    <ShowDateInput
+                        value={
+                            currentNote.showDate
+                                ? moment(currentNote.showDate).format(
+                                      "yyyy-MM-DD"
+                                  )
+                                : ""
+                        }
+                        onChange={(e) =>
+                            handleNoteChange(
+                                "showDate",
+                                e.target.value !== ""
+                                    ? moment(
+                                          e.target.value,
+                                          "yyyy-MM-DD"
+                                      ).toDate()
+                                    : undefined
+                            )
+                        }
+                        placeholder={strings.noteScreen.noteShowDate}
+                        type={"date"}
                         borderless
                     />
                     <NoteScreenEditorContainer>
