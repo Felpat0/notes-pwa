@@ -20,6 +20,7 @@ export const SquareText = styled.p`
     color: ${themeColors.text4};
     margin: 0;
     padding: 0;
+    text-align: center;
 `;
 
 export const SquareSubText = styled.p`
@@ -28,4 +29,5 @@ export const SquareSubText = styled.p`
     color: ${themeColors.text4};
     margin: 0;
     padding: 0;
+    text-align: center;
 `;
