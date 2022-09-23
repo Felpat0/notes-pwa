@@ -16,12 +16,22 @@ function App() {
     useEffect(() => {
         if (showReload && waitingWorker) {
             toast.success(
-                <div>
+                <div
+                    style={{
+                        display: "flex",
+                        flexDirection: "column",
+                        alignItems: "center",
+                        padding: "0rem 1rem",
+                    }}
+                >
                     <p>{strings.common.newVersion}</p>
                     <Button onClick={() => reloadPage()}>
                         {strings.common.update}
                     </Button>
-                </div>
+                </div>,
+                {
+                    duration: 999999999,
+                }
             );
         }
     }, [waitingWorker, showReload, reloadPage]);
