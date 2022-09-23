@@ -8,7 +8,9 @@ export const colors = {
     purple3: "#7284A8",
     purple4: "#662C85",
     white1: "#FFFFFF",
+    white2: "#e2e2e2",
     black1: "#121212",
+    black2: "#262626",
 };
 
 export const themeColors = {
@@ -27,4 +29,34 @@ export const themeColors = {
     projectsElementBackground: colors.blue2,
     projectsElementBackgroundHover: colors.blue3,
     modalBackground: colors.black1,
+    buttons: {
+        primary: {
+            enabled: {
+                background: colors.blue2,
+                text: colors.white1,
+            },
+            disabled: {
+                background: colors.purple3,
+                text: colors.white2,
+            },
+            hovered: {
+                background: colors.blue3,
+                text: colors.white1,
+            },
+        },
+        secondary: {
+            enabled: {
+                background: colors.black1,
+                text: colors.white1,
+            },
+            disabled: {
+                background: colors.purple3,
+                text: colors.white2,
+            },
+            hovered: {
+                background: colors.black2,
+                text: colors.white1,
+            },
+        },
+    },
 };

@@ -18,6 +18,7 @@ import { getNoteRoute } from "../../utils/routing";
 import { Square } from "../../components/Common/Square";
 import moment from "moment";
 import toast from "react-hot-toast";
+import { confirmAlert } from "../../components/Common/ConfirmModal";
 
 export const Home: React.FC = () => {
     const navigate = useNavigate();
@@ -55,11 +56,22 @@ export const Home: React.FC = () => {
 
     const handleDeleteNote = useCallback(
         (note: Note) => {
-            toast.success(strings.toasts.noteDeleted);
             deleteNote(note.id);
+            toast.success(strings.toasts.noteDeleted);
             updateNotes();
         },
         [updateNotes]
+    );
+
+    const handleNoteTrashClick = useCallback(
+        (note: Note) => {
+            confirmAlert({
+                message: strings.alerts.deleteNote,
+                onConfirm: () => handleDeleteNote(note),
+                onCancel: () => {},
+            });
+        },
+        [handleDeleteNote]
     );
 
     return (
@@ -68,14 +80,14 @@ export const Home: React.FC = () => {
             <NameText>Federico</NameText>
             <div style={{ marginTop: "calc(0.5rem + 1vh)" }}>
                 <Input
-                    placeholder={"Cerca..."}
+                    placeholder={strings.common.search}
                     Icon={SearchIcon}
                     style={{ height: "35px" }}
                     value={searchText}
                     onChange={(e) => setSearchText(e.target.value)}
                 />
             </div>
-            {todayNotes && todayNotes.length > 0 && (
+            {searchText === "" && todayNotes.length > 0 && (
                 <Section
                     title={"Today's Notes"}
                     scrollerStyle={{
@@ -117,7 +129,7 @@ export const Home: React.FC = () => {
                             note={note}
                             key={note.id}
                             onClick={handleNoteClick}
-                            onDelete={handleDeleteNote}
+                            onDelete={handleNoteTrashClick}
                         />
                     ))}
                 </NoteElementsContainer>

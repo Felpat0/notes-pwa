@@ -1,6 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
 import moment from "moment";
-import ReactQuill, { Quill } from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import { useSelector } from "react-redux";
 import { State } from "../../types/redux";
@@ -18,12 +17,7 @@ import { getNote, getOrCreateEmptyNote, updateNote } from "../../utils/storage";
 import { Note } from "../../types";
 import { getNoteRoute } from "../../utils/routing";
 import { Editor } from "../../components/Note/Editor";
-
-let Inline = Quill.import("blots/inline");
-class BoldBlot extends Inline {}
-BoldBlot.blotName = "checkbox";
-BoldBlot.tagName = "checkbox";
-Quill.register("formats/checkbox", BoldBlot);
+import { confirmAlert } from "../../components/Common/ConfirmModal";
 
 export const NoteScreen: React.FC = () => {
     const { noteId } = useParams();
@@ -64,6 +58,13 @@ export const NoteScreen: React.FC = () => {
                         }
                         placeholder={strings.noteScreen.noteTitle}
                         type={"text"}
+                        onClick={() => {
+                            confirmAlert({
+                                message: "ciao",
+                                onCancel: () => {},
+                                onConfirm: () => {},
+                            });
+                        }}
                         borderless
                     />
                     <ShowDateContainer>
