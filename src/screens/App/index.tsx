@@ -9,9 +9,37 @@ import { useServiceWorker } from "../../hooks/useServiceWorker";
 import { useEffect } from "react";
 import { Button } from "../../components/Common/Button";
 import { strings } from "../../localization/strings";
+import { inputModal } from "../../components/Common/InputModal";
+import { getUsername, setUsername } from "../../utils/storage";
 
 function App() {
     const { waitingWorker, showReload, reloadPage } = useServiceWorker();
+
+    useEffect(() => {
+        if (!getUsername()) {
+            inputModal({
+                message: (
+                    <div
+                        style={{
+                            display: "flex",
+                            flexDirection: "column",
+                            alignItems: "center",
+                        }}
+                    >
+                        <h1 style={{ margin: 0 }}>
+                            {strings.common.insertNameHeading}
+                        </h1>
+                        <p>{strings.common.insertNameDescription}</p>
+                    </div>
+                ),
+                onConfirm: (name: string) => {
+                    setUsername(name);
+                    reloadPage();
+                },
+                style: { padding: "calc(1rem + 1vw)" },
+            });
+        }
+    }, [reloadPage]);
 
     useEffect(() => {
         if (showReload && waitingWorker) {

@@ -1,3 +1,4 @@
+import { useEffect, useRef } from "react";
 import { StyledQuillEditor } from "./style";
 
 type Props = {
@@ -22,12 +23,21 @@ const Modules = {
 };
 
 export const Editor: React.FC<Props> = ({ value, onChange }) => {
+    const editorRef = useRef<any>(null);
+
+    useEffect(() => {
+        if (editorRef.current) {
+            editorRef.current.focus();
+        }
+    }, [editorRef]);
+
     return (
         <StyledQuillEditor
             theme="snow"
             value={value}
             onChange={(newValue) => onChange(newValue)}
             modules={Modules}
+            ref={editorRef}
         />
     );
 };

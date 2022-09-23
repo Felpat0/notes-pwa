@@ -9,7 +9,12 @@ import {
 import { ReactComponent as SearchIcon } from "./../../assets/icons/SearchIcon.svg";
 import { ReactComponent as AddIcon } from "./../../assets/icons/AddIcon.svg";
 import { Section } from "../../components/Home/Section";
-import { deleteNote, getNotes, getTodaysNotes } from "../../utils/storage";
+import {
+    deleteNote,
+    getNotes,
+    getTodaysNotes,
+    getUsername,
+} from "../../utils/storage";
 import { useCallback, useMemo, useState } from "react";
 import { Note } from "../../types";
 import { NoteElement } from "../../components/Common/NoteElement";
@@ -77,7 +82,7 @@ export const Home: React.FC = () => {
     return (
         <HomeContainer>
             <GreetingText>{strings.home.greeting}</GreetingText>
-            <NameText>Federico</NameText>
+            <NameText>{getUsername()}</NameText>
             <div style={{ marginTop: "calc(0.5rem + 1vh)" }}>
                 <Input
                     placeholder={strings.common.search}

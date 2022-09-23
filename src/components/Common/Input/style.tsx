@@ -12,6 +12,7 @@ export const StyledInput = styled.input<{ borderless?: boolean }>`
         color: ${themeColors.inputPlaceholder};
         padding-left: 0.5rem;
     }
+    padding-left: 0.5rem;
 
     ${(props) =>
         props.borderless

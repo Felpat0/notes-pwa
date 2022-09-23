@@ -11,6 +11,8 @@ export const en = {
         search: "Search",
         update: "Update",
         newVersion: "New version available",
+        insertNameHeading: `Welcome to Notes!`,
+        insertNameDescription: `Insert your name to start using the app.`,
     },
     home: {
         greeting: "Hey,",
