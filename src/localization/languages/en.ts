@@ -9,6 +9,8 @@ export const en = {
         add: "Add",
         close: "Close",
         search: "Search",
+        update: "Update",
+        newVersion: "New version available",
     },
     home: {
         greeting: "Hey,",
