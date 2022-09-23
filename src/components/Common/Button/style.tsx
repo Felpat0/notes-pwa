@@ -18,7 +18,7 @@ export const StyledButton = styled.button<{
             props.variant,
             props.disabled ? "disabled" : "enabled"
         )};
-    border-radius: 5px;
+    border-radius: 8px;
     padding: 0.5rem 0.5rem;
     border: none;
     outline: none;

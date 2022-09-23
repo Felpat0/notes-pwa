@@ -17,6 +17,10 @@ export const en = {
         noteTitle: "Note's title",
         noteShowDate: "Note's show date",
     },
+    drawer: {
+        home: "Home",
+        createNote: "Create note",
+    },
     alerts: {
         deleteNote: "Are you sure you want to delete this note?",
     },

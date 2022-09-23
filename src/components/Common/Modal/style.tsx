@@ -12,6 +12,17 @@ export const ModalContainer = styled.div<{ isOpen: boolean }>`
     z-index: 100;
     justify-content: center;
     align-items: center;
+
+    animation: fadeIn 0.3s;
+
+    @keyframes fadeIn {
+        0% {
+            opacity: 0;
+        }
+        100% {
+            opacity: 1;
+        }
+    }
 `;
 
 export const ModalContent = styled.div`
