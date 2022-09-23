@@ -4,10 +4,12 @@ import { Home } from "../Home";
 import { NoteScreen } from "../Note";
 import { Provider } from "react-redux";
 import { store } from "../../redux/store";
+import { Toaster } from "react-hot-toast";
 
 function App() {
     return (
         <Provider store={store}>
+            <Toaster position={"bottom-center"} />
             <BrowserRouter>
                 <Routes>
                     <Route path={"/notes-pwa"} element={<AppLayout />}>

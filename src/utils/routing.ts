@@ -5,5 +5,5 @@ export const formatPath = (path: string) => {
 };
 
 export const shouldShowOptionsButton = (path: string) => {
-    return path !== formatPath("");
+    return path === formatPath("");
 };

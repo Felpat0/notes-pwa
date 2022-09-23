@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 import moment from "moment";
-import ReactQuill from "react-quill";
+import ReactQuill, { Quill } from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import { useSelector } from "react-redux";
 import { State } from "../../types/redux";
@@ -17,6 +17,13 @@ import { strings } from "../../localization/strings";
 import { getNote, getOrCreateEmptyNote, updateNote } from "../../utils/storage";
 import { Note } from "../../types";
 import { getNoteRoute } from "../../utils/routing";
+import { Editor } from "../../components/Note/Editor";
+
+let Inline = Quill.import("blots/inline");
+class BoldBlot extends Inline {}
+BoldBlot.blotName = "checkbox";
+BoldBlot.tagName = "checkbox";
+Quill.register("formats/checkbox", BoldBlot);
 
 export const NoteScreen: React.FC = () => {
     const { noteId } = useParams();
@@ -88,13 +95,11 @@ export const NoteScreen: React.FC = () => {
                         />
                     </ShowDateContainer>
                     <NoteScreenEditorContainer>
-                        <ReactQuill
-                            theme="snow"
+                        <Editor
                             value={currentNote.content}
-                            onChange={(value) =>
-                                handleNoteChange("content", value)
+                            onChange={(newContent) =>
+                                handleNoteChange("content", newContent)
                             }
-                            style={{ width: "100%", height: "70vh" }}
                         />
                     </NoteScreenEditorContainer>
                 </>

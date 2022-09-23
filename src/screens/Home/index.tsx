@@ -9,20 +9,33 @@ import {
 import { ReactComponent as SearchIcon } from "./../../assets/icons/SearchIcon.svg";
 import { ReactComponent as AddIcon } from "./../../assets/icons/AddIcon.svg";
 import { Section } from "../../components/Home/Section";
-import { ProjectsElement } from "../../components/Common/ProjectsElement";
 import { deleteNote, getNotes, getTodaysNotes } from "../../utils/storage";
-import { useCallback, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { Note } from "../../types";
 import { NoteElement } from "../../components/Common/NoteElement";
 import { useNavigate } from "react-router-dom";
 import { getNoteRoute } from "../../utils/routing";
 import { Square } from "../../components/Common/Square";
 import moment from "moment";
+import toast from "react-hot-toast";
 
 export const Home: React.FC = () => {
     const navigate = useNavigate();
     const [notes, setNotes] = useState(getNotes());
     const [todayNotes, setTodayNotes] = useState<Note[]>(getTodaysNotes());
+    const [searchText, setSearchText] = useState("");
+
+    const filteredNotes = useMemo(
+        () =>
+            searchText === ""
+                ? notes
+                : notes.filter((note) => {
+                      return note.title
+                          .toLowerCase()
+                          .includes(searchText.toLowerCase());
+                  }),
+        [notes, searchText]
+    );
 
     const updateNotes = useCallback(() => {
         setNotes(getNotes());
@@ -42,6 +55,7 @@ export const Home: React.FC = () => {
 
     const handleDeleteNote = useCallback(
         (note: Note) => {
+            toast.success(strings.toasts.noteDeleted);
             deleteNote(note.id);
             updateNotes();
         },
@@ -50,42 +64,44 @@ export const Home: React.FC = () => {
 
     return (
         <HomeContainer>
-            <div>
-                <GreetingText>{strings.home.greeting}</GreetingText>
-            </div>
+            <GreetingText>{strings.home.greeting}</GreetingText>
             <NameText>Federico</NameText>
             <div style={{ marginTop: "calc(0.5rem + 1vh)" }}>
                 <Input
                     placeholder={"Cerca..."}
                     Icon={SearchIcon}
                     style={{ height: "35px" }}
+                    value={searchText}
+                    onChange={(e) => setSearchText(e.target.value)}
                 />
             </div>
-            <Section
-                title={"Today's Notes"}
-                scrollerStyle={{
-                    maxHeight: "calc(7vw + 5rem)",
-                    overflowY: "hidden",
-                    marginRight: "calc(-1rem - 2vw)",
-                    paddingBottom: "calc(3rem - 3vh)",
-                    gap: "1.5rem",
-                }}
-            >
-                {todayNotes.map((note) => (
-                    <Square
-                        text={note.title}
-                        subText={
-                            note.showDate
-                                ? moment(note.showDate).format("DD/MM/YYYY")
-                                : ""
-                        }
-                        onClick={() => handleNoteClick(note)}
-                        style={{ cursor: "pointer" }}
-                        key={note.id}
-                    />
-                ))}
-            </Section>
-            <ProjectsElement style={{ marginTop: "1.5rem" }} />
+            {todayNotes && todayNotes.length > 0 && (
+                <Section
+                    title={"Today's Notes"}
+                    scrollerStyle={{
+                        maxHeight: "calc(7vw + 5rem)",
+                        overflowY: "hidden",
+                        marginRight: "calc(-1rem - 2vw)",
+                        paddingBottom: "calc(3rem - 3vh)",
+                        gap: "1.5rem",
+                    }}
+                >
+                    {todayNotes.map((note) => (
+                        <Square
+                            text={note.title}
+                            subText={
+                                note.showDate
+                                    ? moment(note.showDate).format("DD/MM/YYYY")
+                                    : ""
+                            }
+                            onClick={() => handleNoteClick(note)}
+                            style={{ cursor: "pointer" }}
+                            key={note.id}
+                        />
+                    ))}
+                </Section>
+            )}
+            {/* <ProjectsElement style={{ marginTop: "1.5rem" }} /> */}
             <Section
                 title={"Notes"}
                 rightIcon={
@@ -96,7 +112,7 @@ export const Home: React.FC = () => {
                 }
             >
                 <NoteElementsContainer>
-                    {notes.map((note) => (
+                    {filteredNotes.map((note) => (
                         <NoteElement
                             note={note}
                             key={note.id}

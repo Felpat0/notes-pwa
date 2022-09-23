@@ -9,4 +9,7 @@ export const en = {
         noteTitle: "Note's title",
         noteShowDate: "Note's show date",
     },
+    toasts: {
+        noteDeleted: "Note deleted successfully",
+    },
 };
