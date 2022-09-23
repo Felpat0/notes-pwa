@@ -28,15 +28,15 @@ export const NoteElementTitlesContainer = styled.div`
 `;
 
 export const NoteElementTitle = styled.p`
-    font-size: 24px;
+    font-size: calc(0.5vw + 1rem);
     font-weight: heavy;
     color: ${themeColors.text1};
     margin: 0;
     padding: 0;
 `;
 
-export const NoteElementProject = styled.p`
-    font-size: 18px;
+export const NoteElementSubtitle = styled.p`
+    font-size: calc(0.4vw + 0.7rem);
     font-weight: 600;
     color: ${themeColors.text2};
     margin: 0;

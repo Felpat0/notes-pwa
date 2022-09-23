@@ -13,5 +13,7 @@ export const AppLayoutContainer = styled.div`
 export const OutletContainer = styled.div`
     display: flex;
     margin-top: 60px;
+    flex-grow: 1;
     padding: 0 calc(1rem + 2vw);
+    overflow: auto;
 `;

@@ -15,7 +15,7 @@ export const SquareContainer = styled.div`
 `;
 
 export const SquareText = styled.p`
-    font-size: 33px;
+    font-size: calc(0.5vw + 1.2rem);
     font-weight: bold;
     color: ${themeColors.text4};
     margin: 0;
@@ -24,7 +24,7 @@ export const SquareText = styled.p`
 `;
 
 export const SquareSubText = styled.p`
-    font-size: 17px;
+    font-size: calc(0.5vw + 0.8rem);
     font-weight: bold;
     color: ${themeColors.text4};
     margin: 0;

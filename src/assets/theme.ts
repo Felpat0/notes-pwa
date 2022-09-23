@@ -8,6 +8,7 @@ export const colors = {
     purple3: "#7284A8",
     purple4: "#662C85",
     white1: "#FFFFFF",
+    black1: "#121212",
 };
 
 export const themeColors = {
@@ -25,4 +26,5 @@ export const themeColors = {
     noteElementBackgroundHover: colors.purple4,
     projectsElementBackground: colors.blue2,
     projectsElementBackgroundHover: colors.blue3,
+    modalBackground: colors.black1,
 };

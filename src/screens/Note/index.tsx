@@ -7,7 +7,9 @@ import { State } from "../../types/redux";
 import {
     NoteScreenContainer,
     NoteScreenEditorContainer,
+    ShowDateContainer,
     ShowDateInput,
+    ShowDateText,
     TitleInput,
 } from "./style";
 import { useNavigate, useParams } from "react-router-dom";
@@ -57,29 +59,34 @@ export const NoteScreen: React.FC = () => {
                         type={"text"}
                         borderless
                     />
-                    <ShowDateInput
-                        value={
-                            currentNote.showDate
-                                ? moment(currentNote.showDate).format(
-                                      "yyyy-MM-DD"
-                                  )
-                                : ""
-                        }
-                        onChange={(e) =>
-                            handleNoteChange(
-                                "showDate",
-                                e.target.value !== ""
-                                    ? moment(
-                                          e.target.value,
+                    <ShowDateContainer>
+                        <ShowDateText>
+                            {strings.noteScreen.noteShowDate}
+                        </ShowDateText>
+                        <ShowDateInput
+                            value={
+                                currentNote.showDate
+                                    ? moment(currentNote.showDate).format(
                                           "yyyy-MM-DD"
-                                      ).toDate()
-                                    : undefined
-                            )
-                        }
-                        placeholder={strings.noteScreen.noteShowDate}
-                        type={"date"}
-                        borderless
-                    />
+                                      )
+                                    : ""
+                            }
+                            onChange={(e) =>
+                                handleNoteChange(
+                                    "showDate",
+                                    e.target.value !== ""
+                                        ? moment(
+                                              e.target.value,
+                                              "yyyy-MM-DD"
+                                          ).toDate()
+                                        : undefined
+                                )
+                            }
+                            placeholder={strings.noteScreen.noteShowDate}
+                            type={"date"}
+                            borderless
+                        />
+                    </ShowDateContainer>
                     <NoteScreenEditorContainer>
                         <ReactQuill
                             theme="snow"
