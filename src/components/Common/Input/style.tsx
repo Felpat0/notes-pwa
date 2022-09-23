@@ -10,6 +10,7 @@ export const StyledInput = styled.input<{ borderless?: boolean }>`
     width: 100%;
     &::-webkit-input-placeholder {
         color: ${themeColors.inputPlaceholder};
+        padding-left: 0.5rem;
     }
 
     ${(props) =>
