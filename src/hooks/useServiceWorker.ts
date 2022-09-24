@@ -11,6 +11,7 @@ export const useServiceWorker = () => {
     // registration onUpdate.
     const onSWUpdate = useCallback(
         (registration: ServiceWorkerRegistration) => {
+            console.log("Triggered onUpdate on useServiceWorker");
             setShowReload(true);
             setWaitingWorker(registration.waiting);
         },

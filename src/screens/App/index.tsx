@@ -42,6 +42,7 @@ function App() {
     }, [reloadPage]);
 
     useEffect(() => {
+        console.log("useEffect ServiceWorker", showReload, waitingWorker);
         if (showReload && waitingWorker) {
             toast.success(
                 <div

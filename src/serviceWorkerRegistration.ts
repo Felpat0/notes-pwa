@@ -66,8 +66,9 @@ function registerValidSW(swUrl: string, config?: Config) {
             setInterval(() => {
                 registration.update();
                 console.log("Checked for updates");
-            }, 1000 * 60);
+            }, 1000 * 20);
             registration.onupdatefound = () => {
+                console.log("Update found");
                 const installingWorker = registration.installing;
                 if (installingWorker == null) {
                     return;

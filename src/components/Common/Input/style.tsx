@@ -8,11 +8,10 @@ export const InputContainer = styled.div`
 export const StyledInput = styled.input<{ borderless?: boolean }>`
     height: 25px;
     width: 100%;
+    padding-left: 0.5rem;
     &::-webkit-input-placeholder {
         color: ${themeColors.inputPlaceholder};
-        padding-left: 0.5rem;
     }
-    padding-left: 0.5rem;
 
     ${(props) =>
         props.borderless
@@ -34,6 +33,9 @@ export const StyledInput = styled.input<{ borderless?: boolean }>`
                 outline: none;
             }
 `}
+    -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+    -moz-box-sizing: border-box; /* Firefox, other Gecko */
+    box-sizing: border-box; /* Opera/IE 8+ */
 `;
 
 export const InputIconContainer = styled.div`
