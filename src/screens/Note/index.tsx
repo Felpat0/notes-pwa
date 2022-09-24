@@ -17,7 +17,6 @@ import { getNote, getOrCreateEmptyNote, updateNote } from "../../utils/storage";
 import { Note } from "../../types";
 import { getNoteRoute } from "../../utils/routing";
 import { Editor } from "../../components/Note/Editor";
-import { confirmAlert } from "../../components/Common/ConfirmModal";
 
 export const NoteScreen: React.FC = () => {
     const { noteId } = useParams();
@@ -58,13 +57,6 @@ export const NoteScreen: React.FC = () => {
                         }
                         placeholder={strings.noteScreen.noteTitle}
                         type={"text"}
-                        onClick={() => {
-                            confirmAlert({
-                                message: "ciao",
-                                onCancel: () => {},
-                                onConfirm: () => {},
-                            });
-                        }}
                         borderless
                     />
                     <ShowDateContainer>
