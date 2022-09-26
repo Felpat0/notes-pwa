@@ -22,7 +22,7 @@ export const ShowDateContainer = styled.div`
 `;
 
 export const ShowDateText = styled.p`
-    font-size: calc(1rem + 0.5vw);
+    font-size: calc(0.8rem + 0.5vw);
     font-weight: bold;
 `;
 
