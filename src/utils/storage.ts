@@ -1,4 +1,5 @@
 import { Note } from "../types";
+import { isNoteEmpty } from "./notes";
 
 export const getUsername = (): string | undefined =>
     localStorage.getItem("username");
@@ -25,9 +26,10 @@ export const getNotes = (page: number = 1, limit: number = 10): Note[] => {
         .slice(offset, offset + limit);
 };
 
-export const getNote = (id: Note["id"]): Note => {
+export const getNote = (id: Note["id"]): Note | undefined => {
     const notes = JSON.parse(localStorage.getItem("notes") || "[]");
-    return toNoteFromLocalStorage(notes.find((note: Note) => note.id === id));
+    const note = notes.find((note: any) => note.id === id);
+    return note ? toNoteFromLocalStorage(note) : undefined;
 };
 
 export const getTodaysNotes = (): Note[] => {
@@ -54,6 +56,7 @@ export const getOrCreateEmptyNote = (id?: number | "new"): Note => {
     }
 
     let notes = getNotes();
+
     const newNote: Note = {
         id: getNextNoteId(),
         title: "",
@@ -63,7 +66,7 @@ export const getOrCreateEmptyNote = (id?: number | "new"): Note => {
         updatedAt: new Date(),
     };
     notes.push(newNote);
-    localStorage.setItem("notes", JSON.stringify(notes));
+    //localStorage.setItem("notes", JSON.stringify(notes));
 
     return newNote;
 };
@@ -75,8 +78,12 @@ export const createNote = (note: Note): Note[] => {
 };
 
 export const updateNote = (note: Note): Note[] => {
+    if (isNoteEmpty(note)) {
+        return deleteNote(note.id);
+    }
     const notes: Note[] = JSON.parse(localStorage.getItem("notes") || "[]");
-    const index = notes.findIndex((n) => n.id === note.id);
+    let index = notes.findIndex((n) => n.id === note.id);
+    if (index === -1) index = notes.length;
     notes[index] = note;
     notes[index].updatedAt = new Date();
     localStorage.setItem("notes", JSON.stringify(notes));

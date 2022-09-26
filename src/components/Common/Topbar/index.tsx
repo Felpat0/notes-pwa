@@ -24,7 +24,6 @@ export const TopBar: React.FC = () => {
 
     const handleDrawerLinkClick = useCallback(
         (path: string) => {
-            console.log(path, formatPath(path));
             navigate(formatPath(path));
             toggleDrawer();
         },

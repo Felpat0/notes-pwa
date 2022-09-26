@@ -15,7 +15,6 @@ import { useNavigate, useParams } from "react-router-dom";
 import { strings } from "../../localization/strings";
 import { getNote, getOrCreateEmptyNote, updateNote } from "../../utils/storage";
 import { Note } from "../../types";
-import { getNoteRoute } from "../../utils/routing";
 import { Editor } from "../../components/Note/Editor";
 
 export const NoteScreen: React.FC = () => {
@@ -29,7 +28,6 @@ export const NoteScreen: React.FC = () => {
         if (noteId === "new") {
             const newNote = getOrCreateEmptyNote(noteId);
             setCurrentNote(newNote);
-            navigate(getNoteRoute(newNote.id));
         } else {
             setCurrentNote(getNote(parseInt(noteId)));
         }
