@@ -1,19 +1,11 @@
 import { Note } from "../types";
+import { toNoteFromLocalStorage } from "./conversions";
 import { isNoteEmpty } from "./notes";
 
 export const getUsername = (): string | undefined =>
     localStorage.getItem("username");
 export const setUsername = (username: string): void =>
     localStorage.setItem("username", username);
-
-export const toNoteFromLocalStorage = (note: any) => {
-    return {
-        ...note,
-        showDate: note.showDate ? new Date(note.showDate) : undefined,
-        createdAt: new Date(note.createdAt),
-        updatedAt: new Date(note.updatedAt),
-    };
-};
 
 export const getNotes = (page: number = 1, limit: number = 10): Note[] => {
     const notes: Note[] = JSON.parse(localStorage.getItem("notes") || "[]").map(

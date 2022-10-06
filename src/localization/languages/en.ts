@@ -20,6 +20,7 @@ export const en = {
     noteScreen: {
         noteTitle: "Note's title",
         noteShowDate: "Note's show date",
+        newCheckboxPlaceholder: "Type here to add a new checkbox item",
     },
     drawer: {
         home: "Home",

@@ -59,4 +59,43 @@ export const themeColors = {
             },
         },
     },
+    checkbox: {
+        enabled: {
+            checked: {
+                background: colors.purple2,
+                border: colors.purple2,
+                check: colors.white1,
+            },
+            unchecked: {
+                background: colors.purple2,
+                border: colors.purple2,
+                check: colors.white1,
+            },
+        },
+
+        disabled: {
+            checked: {
+                background: colors.purple3,
+                border: colors.purple3,
+                check: colors.white2,
+            },
+            unchecked: {
+                background: colors.purple3,
+                border: colors.purple3,
+                check: colors.white2,
+            },
+        },
+        hovered: {
+            checked: {
+                background: colors.purple4,
+                border: colors.purple4,
+                check: colors.white1,
+            },
+            unchecked: {
+                background: colors.purple4,
+                border: colors.purple4,
+                check: colors.white1,
+            },
+        },
+    },
 };
