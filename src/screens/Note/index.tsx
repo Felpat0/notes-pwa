@@ -87,7 +87,7 @@ export const NoteScreen: React.FC = () => {
                         />
                     </ShowDateContainer>
                     <Checklist
-                        checklistItems={currentNote.checklist}
+                        checklistItems={currentNote.checklist || []}
                         style={{
                             margin: "2rem 0",
                             width: "fit-content",
