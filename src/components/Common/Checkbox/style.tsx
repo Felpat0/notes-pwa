@@ -11,8 +11,7 @@ export const CheckboxContainer = styled.div`
     gap: 0.5rem;
 `;
 
-export const CheckboxLabel = styled.p<{ checked?: boolean }>`
-    display: block;
+export const CheckboxLabel = styled.div<{ checked?: boolean }>`
     font-size: 1rem;
     font-weight: bold;
     overflow: hidden;

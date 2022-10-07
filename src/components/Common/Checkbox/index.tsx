@@ -10,6 +10,7 @@ type Props = {
     value: boolean;
     onChange?: (value: boolean) => void;
     onDelete?: () => void;
+    onClick?: () => void;
     children?: string | React.ReactNode;
     disabled?: boolean;
 };
@@ -34,12 +35,7 @@ export const Checkbox: React.FC<Props> = ({
                 )}
             </StyledCheckbox>
             {children && (
-                <CheckboxLabel
-                    checked={value}
-                    onClick={() => onChange && onChange(!value)}
-                >
-                    {children}
-                </CheckboxLabel>
+                <CheckboxLabel checked={value}>{children}</CheckboxLabel>
             )}
             {onDelete && <CheckboxtDeleteIcon onClick={onDelete} />}
         </CheckboxContainer>

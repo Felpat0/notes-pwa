@@ -4,6 +4,7 @@ import { strings } from "../../../localization/strings";
 import { ChecklistItem } from "../../../types";
 import { Checkbox } from "../Checkbox";
 import { Input } from "../Input";
+import { Textarea } from "../Textarea";
 import { ChecklistContainer } from "./style";
 
 type Props = {
@@ -34,9 +35,10 @@ export const Checklist: React.FC<Props> = ({
     );
 
     const handleCheckboxChange = useCallback(
-        (index: number, value: boolean) => {
+        (index: number, value?: boolean, title?: string) => {
             const newChecklistItems = [...checklistItems];
             newChecklistItems[index].checked = value;
+            newChecklistItems[index].title = title;
             onChange?.(newChecklistItems);
         },
         [onChange, checklistItems]
@@ -47,7 +49,9 @@ export const Checklist: React.FC<Props> = ({
             {checklistItems.map((checklistItem, index) => (
                 <Checkbox
                     value={checklistItem.checked}
-                    onChange={(value) => handleCheckboxChange(index, value)}
+                    onChange={(value) =>
+                        handleCheckboxChange(index, value, checklistItem.title)
+                    }
                     onDelete={() => {
                         const newChecklistItems = [...checklistItems];
                         newChecklistItems.splice(index, 1);
@@ -55,7 +59,17 @@ export const Checklist: React.FC<Props> = ({
                     }}
                     key={index}
                 >
-                    {checklistItem.title}
+                    <Textarea
+                        value={checklistItem.title}
+                        onChange={(e) =>
+                            handleCheckboxChange(
+                                index,
+                                checklistItem.checked,
+                                e.target.value
+                            )
+                        }
+                        style={{ maxWidth: "55vw", minWidth: "55vw" }}
+                    />
                 </Checkbox>
             ))}
             <Checkbox value={false} disabled>
