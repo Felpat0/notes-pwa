@@ -18,4 +18,5 @@ export type Project = {
 export type ChecklistItem = {
     title: string;
     checked: boolean;
+    noteId: number;
 };

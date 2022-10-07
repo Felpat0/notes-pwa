@@ -1,4 +1,4 @@
-import { Note } from "../types";
+import { ChecklistItem, Note } from "../types";
 import { toNoteFromLocalStorage } from "./conversions";
 import { isNoteEmpty } from "./notes";
 
@@ -37,6 +37,30 @@ export const getTodaysNotes = (): Note[] => {
             note.showDate.getFullYear() === today.getFullYear()
         );
     });
+};
+
+export const getTodaysChecklist = (): ChecklistItem[] => {
+    const notes = getTodaysNotes();
+    const checklist: ChecklistItem[] = [];
+    notes.forEach((note: Note) => {
+        if (note.checklist) {
+            note.checklist.forEach((item: ChecklistItem) => {
+                checklist.push(item);
+            });
+        }
+    });
+    return checklist;
+};
+
+export const updateNoteChecklist = (checklist: ChecklistItem[]): void => {
+    const notes = getNotes(1, 99999);
+    const updatedNotes = notes.map((note: Note) => {
+        if (note.checklist) {
+            note.checklist = checklist;
+        }
+        return note;
+    });
+    localStorage.setItem("notes", JSON.stringify(updatedNotes));
 };
 
 export const getOrCreateEmptyNote = (id?: number | "new"): Note => {

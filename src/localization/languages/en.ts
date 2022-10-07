@@ -7,6 +7,7 @@ export const en = {
         delete: "Delete",
         edit: "Edit",
         add: "Add",
+        open: "Open",
         close: "Close",
         search: "Search",
         update: "Update",
@@ -16,11 +17,16 @@ export const en = {
     },
     home: {
         greeting: "Hey,",
+        todaysNotes: "Today's Notes",
+        noNotes: "No notes",
+        todaysChecklist: "Today's Checklist",
+        notes: "Notes",
     },
     noteScreen: {
         noteTitle: "Note's title",
         noteShowDate: "Note's show date",
-        newCheckboxPlaceholder: "Type here to add a new checkbox item",
+        newCheckboxPlaceholder:
+            "Type here and press enter to add a new checkbox item",
     },
     drawer: {
         home: "Home",

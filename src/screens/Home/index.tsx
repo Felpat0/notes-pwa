@@ -12,11 +12,13 @@ import { Section } from "../../components/Home/Section";
 import {
     deleteNote,
     getNotes,
+    getTodaysChecklist,
     getTodaysNotes,
     getUsername,
+    updateNoteChecklist,
 } from "../../utils/storage";
 import { useCallback, useMemo, useState } from "react";
-import { Note } from "../../types";
+import { ChecklistItem, Note } from "../../types";
 import { NoteElement } from "../../components/Common/NoteElement";
 import { useNavigate } from "react-router-dom";
 import { getNoteRoute } from "../../utils/routing";
@@ -24,6 +26,7 @@ import { Square } from "../../components/Common/Square";
 import moment from "moment";
 import toast from "react-hot-toast";
 import { confirmAlert } from "../../components/Common/ConfirmModal";
+import { Checklist } from "../../components/Common/Checklist";
 
 export const Home: React.FC = () => {
     const navigate = useNavigate();
@@ -42,6 +45,8 @@ export const Home: React.FC = () => {
                   }),
         [notes, searchText]
     );
+
+    const todayChecklist = useMemo(() => getTodaysChecklist(), []);
 
     const updateNotes = useCallback(() => {
         setNotes(getNotes());
@@ -79,6 +84,14 @@ export const Home: React.FC = () => {
         [handleDeleteNote]
     );
 
+    const handleChecklistChange = useCallback(
+        (checklist: ChecklistItem[]) => {
+            updateNoteChecklist(checklist);
+            updateNotes();
+        },
+        [updateNotes]
+    );
+
     return (
         <HomeContainer>
             <GreetingText>{strings.home.greeting}</GreetingText>
@@ -92,35 +105,50 @@ export const Home: React.FC = () => {
                     onChange={(e) => setSearchText(e.target.value)}
                 />
             </div>
-            {searchText === "" && todayNotes.length > 0 && (
-                <Section
-                    title={"Today's Notes"}
-                    scrollerStyle={{
-                        maxHeight: "calc(7vw + 5rem)",
-                        overflowY: "hidden",
-                        marginRight: "calc(-1rem - 2vw)",
-                        paddingBottom: "calc(3rem - 3vh)",
-                        gap: "1.5rem",
-                    }}
-                >
-                    {todayNotes.map((note) => (
-                        <Square
-                            text={note.title}
-                            subText={
-                                note.showDate
-                                    ? moment(note.showDate).format("DD/MM/YYYY")
-                                    : ""
-                            }
-                            onClick={() => handleNoteClick(note)}
-                            style={{ cursor: "pointer" }}
-                            key={note.id}
-                        />
-                    ))}
-                </Section>
+            {searchText === "" && (
+                <>
+                    {todayChecklist.length > 0 && (
+                        <Section title={strings.home.todaysChecklist} closable>
+                            <Checklist
+                                checklistItems={todayChecklist}
+                                onChange={handleChecklistChange}
+                                hideAddCheckbox
+                            />
+                        </Section>
+                    )}
+                    {todayNotes.length > 0 && (
+                        <Section
+                            title={strings.home.todaysNotes}
+                            scrollerStyle={{
+                                maxHeight: "calc(7vw + 5rem)",
+                                overflowY: "hidden",
+                                marginRight: "calc(-1rem - 2vw)",
+                                paddingBottom: "calc(3rem - 3vh)",
+                                gap: "1.5rem",
+                            }}
+                        >
+                            {todayNotes.map((note) => (
+                                <Square
+                                    text={note.title}
+                                    subText={
+                                        note.showDate
+                                            ? moment(note.showDate).format(
+                                                  "DD/MM/YYYY"
+                                              )
+                                            : ""
+                                    }
+                                    onClick={() => handleNoteClick(note)}
+                                    style={{ cursor: "pointer" }}
+                                    key={note.id}
+                                />
+                            ))}
+                        </Section>
+                    )}
+                </>
             )}
             {/* <ProjectsElement style={{ marginTop: "1.5rem" }} /> */}
             <Section
-                title={"Notes"}
+                title={strings.home.notes}
                 rightIcon={
                     <AddIcon
                         style={{ cursor: "pointer" }}

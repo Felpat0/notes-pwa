@@ -91,11 +91,11 @@ export const NoteScreen: React.FC = () => {
                         style={{
                             margin: "2rem 0",
                             width: "fit-content",
-                            maxWidth: "70vw",
                         }}
                         onChange={(checklistItems) =>
                             handleNoteChange("checklist", checklistItems)
                         }
+                        noteId={currentNote.id}
                     />
                     <NoteScreenEditorContainer>
                         <Editor
