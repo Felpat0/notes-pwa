@@ -43,7 +43,6 @@ export const NoteElementSubtitle = styled.p`
 `;
 
 export const NoteElementDeleteIcon = styled(TrashIcon)`
-    padding-right: 1rem;
     stroke: ${themeColors.text1};
     padding-right: 1.5rem;
     height: 28px;

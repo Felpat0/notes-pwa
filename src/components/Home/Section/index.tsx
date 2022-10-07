@@ -1,4 +1,6 @@
-import { CSSProperties } from "react";
+import { CSSProperties, useState } from "react";
+import { strings } from "../../../localization/strings";
+import { Button } from "../../Common/Button";
 import {
     SectionContainer,
     SectionScroller,
@@ -13,6 +15,7 @@ type Props = {
     titleStyle?: CSSProperties;
     scrollerStyle?: CSSProperties;
     rightIcon?: React.ReactNode;
+    closable?: boolean;
 };
 
 export const Section: React.FC<Props> = ({
@@ -22,14 +25,29 @@ export const Section: React.FC<Props> = ({
     titleStyle,
     scrollerStyle,
     rightIcon,
+    closable = false,
 }) => {
+    const [isClosed, setIsClosed] = useState(false);
+
     return (
         <SectionContainer style={style}>
             <SectionTitleContainer>
                 <SectionTitle style={titleStyle}>{title}</SectionTitle>
                 {rightIcon}
+                {closable && (
+                    <Button
+                        onClick={() => setIsClosed(!isClosed)}
+                        style={{ marginLeft: "auto" }}
+                    >
+                        {isClosed ? strings.common.open : strings.common.close}
+                    </Button>
+                )}
             </SectionTitleContainer>
-            <SectionScroller style={scrollerStyle}>{children}</SectionScroller>
+            {!isClosed && (
+                <SectionScroller style={scrollerStyle}>
+                    {children}
+                </SectionScroller>
+            )}
         </SectionContainer>
     );
 };

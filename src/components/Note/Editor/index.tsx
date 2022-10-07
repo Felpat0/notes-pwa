@@ -9,15 +9,9 @@ type Props = {
 const Modules = {
     toolbar: [
         [{ size: ["small", false, "large", "huge"] }, { font: [] }],
-        ["bold", "italic", "underline", "strike", "blockquote"],
+        ["bold", "italic", "underline", "blockquote"],
         ["code-block"],
-        [
-            { list: "ordered" },
-            { list: "bullet" },
-            { list: "check" },
-            { indent: "-1" },
-            { indent: "+1" },
-        ],
+        [{ list: "ordered" }, { list: "bullet" }],
         ["link", "image"],
         ["clean"],
     ],

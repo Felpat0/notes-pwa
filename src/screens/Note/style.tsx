@@ -6,6 +6,8 @@ export const NoteScreenContainer = styled.div`
     flex-direction: column;
     height: 100%;
     width: 100%;
+    overflow: hidden;
+    padding-bottom: 5rem;
 `;
 
 export const TitleInput = styled(Input)`
