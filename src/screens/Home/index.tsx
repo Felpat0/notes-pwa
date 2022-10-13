@@ -9,16 +9,8 @@ import {
 import { ReactComponent as SearchIcon } from "./../../assets/icons/SearchIcon.svg";
 import { ReactComponent as AddIcon } from "./../../assets/icons/AddIcon.svg";
 import { Section } from "../../components/Home/Section";
-import {
-    deleteNote,
-    getNotes,
-    getTodaysChecklist,
-    getTodaysNotes,
-    getUsername,
-    updateNoteChecklist,
-} from "../../utils/storage";
 import { useCallback, useMemo, useState } from "react";
-import { ChecklistItem, Note } from "../../types";
+import { ChecklistType, Note } from "../../types";
 import { NoteElement } from "../../components/Common/NoteElement";
 import { useNavigate } from "react-router-dom";
 import { getNoteRoute } from "../../utils/routing";
@@ -26,6 +18,9 @@ import { Square } from "../../components/Common/Square";
 import moment from "moment";
 import toast from "react-hot-toast";
 import { confirmAlert } from "../../components/Common/ConfirmModal";
+import { getNotes, getTodaysNotes, deleteNote } from "../../storage/notes";
+import { getUsername } from "../../storage/user";
+import { updateChecklist } from "../../storage/checklists";
 import { Checklist } from "../../components/Common/Checklist";
 
 export const Home: React.FC = () => {
@@ -45,8 +40,6 @@ export const Home: React.FC = () => {
                   }),
         [notes, searchText]
     );
-
-    const todayChecklist = useMemo(() => getTodaysChecklist(), []);
 
     const updateNotes = useCallback(() => {
         setNotes(getNotes());
@@ -84,9 +77,9 @@ export const Home: React.FC = () => {
         [handleDeleteNote]
     );
 
-    const handleChecklistChange = useCallback(
-        (checklist: ChecklistItem[]) => {
-            updateNoteChecklist(checklist);
+    const handleChecklistTypeChange = useCallback(
+        (checklist: ChecklistType[]) => {
+            updateChecklist(checklist);
             updateNotes();
         },
         [updateNotes]
@@ -107,15 +100,19 @@ export const Home: React.FC = () => {
             </div>
             {searchText === "" && (
                 <>
-                    {todayChecklist.length > 0 && (
-                        <Section title={strings.home.todaysChecklist} closable>
+                    {/* 
+                    {todayChecklistType.length > 0 && (
+                        <Section title={strings.home.todaysChecklistType} closable>
                             <Checklist
-                                checklistItems={todayChecklist}
-                                onChange={handleChecklistChange}
+                                checklistItems={todayChecklistType}
+                                onChange={handleChecklistTypeChange}
                                 hideAddCheckbox
                             />
                         </Section>
-                    )}
+                    )} */}
+                    <Checklist
+                        checklist={{ id: 1, items: [], showDate: new Date() }}
+                    />
                     {todayNotes.length > 0 && (
                         <Section
                             title={strings.home.todaysNotes}

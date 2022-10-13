@@ -13,10 +13,9 @@ import {
 } from "./style";
 import { useNavigate, useParams } from "react-router-dom";
 import { strings } from "../../localization/strings";
-import { getNote, getOrCreateEmptyNote, updateNote } from "../../utils/storage";
 import { Note } from "../../types";
 import { Editor } from "../../components/Note/Editor";
-import { Checklist } from "../../components/Common/Checklist";
+import { getOrCreateEmptyNote, getNote, updateNote } from "../../storage/notes";
 
 export const NoteScreen: React.FC = () => {
     const { noteId } = useParams();
@@ -86,17 +85,6 @@ export const NoteScreen: React.FC = () => {
                             borderless
                         />
                     </ShowDateContainer>
-                    <Checklist
-                        checklistItems={currentNote.checklist || []}
-                        style={{
-                            margin: "2rem 0",
-                            width: "fit-content",
-                        }}
-                        onChange={(checklistItems) =>
-                            handleNoteChange("checklist", checklistItems)
-                        }
-                        noteId={currentNote.id}
-                    />
                     <NoteScreenEditorContainer>
                         <Editor
                             value={currentNote.content}
