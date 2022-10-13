@@ -19,7 +19,7 @@ export const en = {
         greeting: "Hey,",
         todaysNotes: "Today's Notes",
         noNotes: "No notes",
-        todaysChecklist: "Today's Checklist",
+        todaysChecklistType: "Today's ChecklistType",
         notes: "Notes",
     },
     noteScreen: {

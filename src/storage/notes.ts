@@ -1,11 +1,6 @@
-import { ChecklistItem, Note } from "../types";
-import { toNoteFromLocalStorage } from "./conversions";
-import { isNoteEmpty } from "./notes";
-
-export const getUsername = (): string | undefined =>
-    localStorage.getItem("username");
-export const setUsername = (username: string): void =>
-    localStorage.setItem("username", username);
+import { Note } from "../types";
+import { toNoteFromLocalStorage } from "../utils/conversions";
+import { isNoteEmpty } from "../utils/notes";
 
 export const getNotes = (page: number = 1, limit: number = 10): Note[] => {
     const notes: Note[] = JSON.parse(localStorage.getItem("notes") || "[]").map(
@@ -37,30 +32,6 @@ export const getTodaysNotes = (): Note[] => {
             note.showDate.getFullYear() === today.getFullYear()
         );
     });
-};
-
-export const getTodaysChecklist = (): ChecklistItem[] => {
-    const notes = getTodaysNotes();
-    const checklist: ChecklistItem[] = [];
-    notes.forEach((note: Note) => {
-        if (note.checklist) {
-            note.checklist.forEach((item: ChecklistItem) => {
-                checklist.push(item);
-            });
-        }
-    });
-    return checklist;
-};
-
-export const updateNoteChecklist = (checklist: ChecklistItem[]): void => {
-    const notes = getNotes(1, 99999);
-    const updatedNotes = notes.map((note: Note) => {
-        if (note.checklist) {
-            note.checklist = checklist;
-        }
-        return note;
-    });
-    localStorage.setItem("notes", JSON.stringify(updatedNotes));
 };
 
 export const getOrCreateEmptyNote = (id?: number | "new"): Note => {
@@ -127,7 +98,9 @@ export const deleteNote = (id: Note["id"]): Note[] => {
 };
 
 export const getNextNoteId = (): number => {
-    const notes: Note[] = JSON.parse(localStorage.getItem("notes") || "[]");
+    let notes: Note[] = JSON.parse(localStorage.getItem("notes") || "[]");
     if (notes.length === 0) return 1;
+    notes.sort((a, b) => b.id - a.id);
+
     return notes[notes.length - 1].id + 1;
 };

@@ -2,11 +2,19 @@ export type Note = {
     id: number;
     title: string;
     content: string;
-    checklist?: ChecklistItem[];
     showDate?: Date;
     createdAt: Date;
     updatedAt: Date;
     projectId?: number;
+};
+
+export type ChecklistType = {
+    id: number;
+    title?: string;
+    items: ChecklistItemType[];
+    showDate: Date;
+    createdAt?: Date;
+    updatedAt?: Date;
 };
 
 export type Project = {
@@ -15,8 +23,7 @@ export type Project = {
     notes?: Note[];
 };
 
-export type ChecklistItem = {
+export type ChecklistItemType = {
     title: string;
     checked: boolean;
-    noteId: number;
 };

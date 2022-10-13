@@ -1,61 +1,66 @@
 import { useCallback, useState } from "react";
 import { CSSProperties } from "styled-components";
 import { strings } from "../../../localization/strings";
-import { ChecklistItem } from "../../../types";
+import { ChecklistType } from "../../../types";
 import { Checkbox } from "../Checkbox";
 import { Input } from "../Input";
 import { Textarea } from "../Textarea";
 import { ChecklistContainer } from "./style";
 
 type Props = {
-    checklistItems: ChecklistItem[];
-    onChange?: (checklistItems: ChecklistItem[]) => void;
+    checklist: ChecklistType;
+    onChange?: (checklist: ChecklistType) => void;
     style?: CSSProperties;
     hideAddCheckbox?: boolean;
-    noteId?: number;
 };
 
 export const Checklist: React.FC<Props> = ({
-    checklistItems,
+    checklist,
     onChange,
     style,
     hideAddCheckbox = false,
-    noteId,
 }) => {
     const [inputValue, setInputValue] = useState("");
 
     const handleInputChange = useCallback(() => {
-        if (!noteId) return;
-        const newChecklistItems = [
-            ...checklistItems,
-            { checked: false, title: inputValue, noteId },
-        ];
-        onChange?.(newChecklistItems);
+        const newChecklist: ChecklistType = {
+            ...checklist,
+            items: [...checklist.items, { title: inputValue, checked: false }],
+        };
+
+        onChange?.(newChecklist);
         setInputValue("");
-    }, [onChange, checklistItems, inputValue, noteId]);
+    }, [onChange, checklist, inputValue]);
 
     const handleCheckboxChange = useCallback(
         (index: number, value?: boolean, title?: string) => {
-            const newChecklistItems = [...checklistItems];
-            newChecklistItems[index].checked = value;
-            newChecklistItems[index].title = title;
-            onChange?.(newChecklistItems);
+            const newChecklist = { ...checklist };
+            newChecklist.items[index].checked = value;
+            newChecklist.items[index].title = title;
+            onChange?.(newChecklist);
         },
-        [onChange, checklistItems]
+        [onChange, checklist]
+    );
+
+    const handleDeleteItem = useCallback(
+        (index: number) => {
+            const newChecklist = { ...checklist };
+            newChecklist.items.splice(index, 1);
+            onChange?.(newChecklist);
+        },
+        [onChange, checklist]
     );
 
     return (
         <ChecklistContainer style={style}>
-            {checklistItems.map((checklistItem, index) => (
+            {checklist.items?.map((checklistItem, index) => (
                 <Checkbox
                     value={checklistItem.checked}
                     onChange={(value) =>
                         handleCheckboxChange(index, value, checklistItem.title)
                     }
                     onDelete={() => {
-                        const newChecklistItems = [...checklistItems];
-                        newChecklistItems.splice(index, 1);
-                        onChange?.(newChecklistItems);
+                        handleDeleteItem(index);
                     }}
                     key={index}
                 >

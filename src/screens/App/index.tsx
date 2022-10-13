@@ -10,7 +10,7 @@ import { useEffect } from "react";
 import { Button } from "../../components/Common/Button";
 import { strings } from "../../localization/strings";
 import { inputModal } from "../../components/Common/InputModal";
-import { getUsername, setUsername } from "../../utils/storage";
+import { getUsername, setUsername } from "../../storage/user";
 
 function App() {
     const { waitingWorker, showReload, reloadPage } = useServiceWorker();
