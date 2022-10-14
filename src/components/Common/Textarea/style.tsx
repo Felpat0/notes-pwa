@@ -1,14 +1,24 @@
 import styled from "styled-components";
+import { themeColors } from "../../../assets/theme";
 
 export const StyledTextarea = styled.textarea`
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    border: none;
+    border-bottom: 2px solid transparent;
     padding: 0.5rem;
-    background-color: rgba(255, 255, 255, 0.05);
+    background-color: transparent;
     color: inherit;
-    border-radius: 15px;
+
+    ::-webkit-resizer {
+        display: none;
+    }
 
     &:focus {
         outline: none;
-        border-color: rgba(255, 255, 255, 0.5);
+        border: none;
+        border-bottom: 2px solid ${themeColors.inputBorder};
+
+        ::-webkit-resizer {
+            display: block;
+        }
     }
 `;

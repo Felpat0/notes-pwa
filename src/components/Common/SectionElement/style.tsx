@@ -9,13 +9,13 @@ export const ProjectElementContainer = styled.div`
     align-items: center;
     width: 100%;
     height: 3rem;
-    background-color: ${themeColors.projectsElementBackground};
+    background-color: ${themeColors.SectionElementBackground};
     border-radius: 15px;
     padding: 0.5rem 0;
     cursor: pointer;
 
     &:hover {
-        background-color: ${themeColors.projectsElementBackgroundHover};
+        background-color: ${themeColors.SectionElementBackgroundHover};
     }
 `;
 

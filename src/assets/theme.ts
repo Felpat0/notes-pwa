@@ -26,8 +26,8 @@ export const themeColors = {
     scrollBarBackground: "transparent",
     noteElementBackground: colors.purple2,
     noteElementBackgroundHover: colors.purple4,
-    projectsElementBackground: colors.blue2,
-    projectsElementBackgroundHover: colors.blue3,
+    SectionElementBackground: colors.blue2,
+    SectionElementBackgroundHover: colors.blue3,
     modalBackground: colors.black1,
     buttons: {
         primary: {

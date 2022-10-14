@@ -7,7 +7,6 @@ import {
     NoteScreenContainer,
     NoteScreenEditorContainer,
     ShowDateContainer,
-    ShowDateInput,
     ShowDateText,
     TitleInput,
 } from "./style";
@@ -16,6 +15,7 @@ import { strings } from "../../localization/strings";
 import { Note } from "../../types";
 import { Editor } from "../../components/Note/Editor";
 import { getOrCreateEmptyNote, getNote, updateNote } from "../../storage/notes";
+import { Datepicker } from "../../components/Common/Datepicker";
 
 export const NoteScreen: React.FC = () => {
     const { noteId } = useParams();
@@ -61,7 +61,7 @@ export const NoteScreen: React.FC = () => {
                         <ShowDateText>
                             {strings.noteScreen.noteShowDate}
                         </ShowDateText>
-                        <ShowDateInput
+                        <Datepicker
                             value={
                                 currentNote.showDate
                                     ? moment(currentNote.showDate).format(

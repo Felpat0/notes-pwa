@@ -1,37 +1,60 @@
 import { ChecklistType } from "../types";
+import { toChecklistTypeFromLocalStorage } from "../utils/conversions";
 
-export const getChecklist = (date: Date): ChecklistType | undefined => {
-    const checklists: ChecklistType[] = JSON.parse(
+export const getChecklist = (date: Date): ChecklistType => {
+    let checklists: ChecklistType[] = JSON.parse(
         localStorage.getItem("checklists") || "[]"
-    );
-    const checklist = checklists.find(
-        (checklist: any) =>
+    ).map((checklist: any) => toChecklistTypeFromLocalStorage(checklist));
+
+    const checklist: ChecklistType = checklists.find(
+        (checklist: ChecklistType) =>
             checklist.showDate.getDate() === date.getDate() &&
             checklist.showDate.getMonth() === date.getMonth() &&
             checklist.showDate.getFullYear() === date.getFullYear()
     );
+
+    if (!checklist) {
+        return {
+            id: getNextChecklistTypeId(),
+            showDate: date,
+            items: [],
+        };
+    }
     return checklist;
 };
 
-export const updateChecklist = (checklist: ChecklistType[]): void => {
-    const checklists: ChecklistType[] = JSON.parse(
+export const createOrUpdateChecklist = (
+    checklist: ChecklistType
+): ChecklistType => {
+    let checklists: ChecklistType[] = JSON.parse(
         localStorage.getItem("checklists") || "[]"
+    ).map((checklist: any) => toChecklistTypeFromLocalStorage(checklist));
+
+    const storedChecklistIndex = checklists.findIndex(
+        (storedChecklist: any) =>
+            checklist.showDate.getDate() ===
+                storedChecklist.showDate.getDate() &&
+            checklist.showDate.getMonth() ===
+                storedChecklist.showDate.getMonth() &&
+            checklist.showDate.getFullYear() ===
+                storedChecklist.showDate.getFullYear()
     );
-    const newChecklistType = {
-        id: getNextChecklistTypeId(),
-        items: checklist,
-        showDate: new Date(),
-    };
-    localStorage.setItem(
-        "checklists",
-        JSON.stringify([...checklists, newChecklistType])
-    );
+
+    if (storedChecklistIndex === -1) {
+        checklists.push(checklist);
+    } else {
+        checklists[storedChecklistIndex] = checklist;
+    }
+    localStorage.setItem("checklists", JSON.stringify(checklists));
+
+    return checklist;
 };
 
 export const deleteChecklist = (id: number): void => {
-    const checklists: ChecklistType[] = JSON.parse(
+    let checklists: ChecklistType[] = JSON.parse(
         localStorage.getItem("checklists") || "[]"
-    );
+    ).map((checklist: any) => toChecklistTypeFromLocalStorage(checklist));
+
     const newChecklists = checklists.filter(
         (checklist: ChecklistType) => checklist.id !== id
     );

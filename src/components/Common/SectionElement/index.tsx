@@ -5,13 +5,14 @@ import {
 } from "./style";
 
 type Props = {
+    title: string;
     onClick?: () => void;
     style?: React.CSSProperties;
 };
-export const ProjectsElement: React.FC<Props> = ({ onClick, style }) => {
+export const SectionElement: React.FC<Props> = ({ title, onClick, style }) => {
     return (
         <ProjectElementContainer onClick={onClick} style={style}>
-            <ProjectElementTitle>{"Projects"}</ProjectElementTitle>
+            <ProjectElementTitle>{title}</ProjectElementTitle>
             <ProjectElementArrowIcon />
         </ProjectElementContainer>
     );
