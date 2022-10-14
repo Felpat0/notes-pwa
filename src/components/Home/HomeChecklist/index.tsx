@@ -42,6 +42,7 @@ export const HomeChecklist: React.FC = () => {
                     borderless
                 />
             }
+            closable
         >
             <HomeChecklistContainer>
                 <Checklist checklist={currentChecklist} onChange={onChange} />
