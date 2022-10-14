@@ -1,4 +1,3 @@
-import styled from "styled-components";
-import DP from "react-datepicker";
+import { StyledDatepicker } from "./style";
 
-export const DatePicker = styled(DP)``;
+export const Datepicker = StyledDatepicker;

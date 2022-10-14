@@ -10,7 +10,7 @@ import { ReactComponent as SearchIcon } from "./../../assets/icons/SearchIcon.sv
 import { ReactComponent as AddIcon } from "./../../assets/icons/AddIcon.svg";
 import { Section } from "../../components/Home/Section";
 import { useCallback, useMemo, useState } from "react";
-import { ChecklistType, Note } from "../../types";
+import { Note } from "../../types";
 import { NoteElement } from "../../components/Common/NoteElement";
 import { useNavigate } from "react-router-dom";
 import { getNoteRoute } from "../../utils/routing";
@@ -20,8 +20,7 @@ import toast from "react-hot-toast";
 import { confirmAlert } from "../../components/Common/ConfirmModal";
 import { getNotes, getTodaysNotes, deleteNote } from "../../storage/notes";
 import { getUsername } from "../../storage/user";
-import { updateChecklist } from "../../storage/checklists";
-import { Checklist } from "../../components/Common/Checklist";
+import { HomeChecklist } from "../../components/Home/HomeChecklist";
 
 export const Home: React.FC = () => {
     const navigate = useNavigate();
@@ -77,14 +76,6 @@ export const Home: React.FC = () => {
         [handleDeleteNote]
     );
 
-    const handleChecklistTypeChange = useCallback(
-        (checklist: ChecklistType[]) => {
-            updateChecklist(checklist);
-            updateNotes();
-        },
-        [updateNotes]
-    );
-
     return (
         <HomeContainer>
             <GreetingText>{strings.home.greeting}</GreetingText>
@@ -100,19 +91,7 @@ export const Home: React.FC = () => {
             </div>
             {searchText === "" && (
                 <>
-                    {/* 
-                    {todayChecklistType.length > 0 && (
-                        <Section title={strings.home.todaysChecklistType} closable>
-                            <Checklist
-                                checklistItems={todayChecklistType}
-                                onChange={handleChecklistTypeChange}
-                                hideAddCheckbox
-                            />
-                        </Section>
-                    )} */}
-                    <Checklist
-                        checklist={{ id: 1, items: [], showDate: new Date() }}
-                    />
+                    <HomeChecklist />
                     {todayNotes.length > 0 && (
                         <Section
                             title={strings.home.todaysNotes}
@@ -143,7 +122,7 @@ export const Home: React.FC = () => {
                     )}
                 </>
             )}
-            {/* <ProjectsElement style={{ marginTop: "1.5rem" }} /> */}
+            {/* <SectionElement title={strings.home.checklists} /> */}
             <Section
                 title={strings.home.notes}
                 rightIcon={

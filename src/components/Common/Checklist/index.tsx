@@ -3,7 +3,6 @@ import { CSSProperties } from "styled-components";
 import { strings } from "../../../localization/strings";
 import { ChecklistType } from "../../../types";
 import { Checkbox } from "../Checkbox";
-import { Input } from "../Input";
 import { Textarea } from "../Textarea";
 import { ChecklistContainer } from "./style";
 
@@ -23,6 +22,7 @@ export const Checklist: React.FC<Props> = ({
     const [inputValue, setInputValue] = useState("");
 
     const handleInputChange = useCallback(() => {
+        if (inputValue === "") return;
         const newChecklist: ChecklistType = {
             ...checklist,
             items: [...checklist.items, { title: inputValue, checked: false }],
@@ -79,11 +79,18 @@ export const Checklist: React.FC<Props> = ({
             ))}
             {!hideAddCheckbox && (
                 <Checkbox value={false} disabled>
-                    <Input
+                    <Textarea
                         value={inputValue}
                         onChange={(e) => setInputValue(e.target.value)}
-                        onKeyUp={(event) => {
-                            event.code === "Enter" && handleInputChange();
+                        onKeyDown={(event) => {
+                            if (
+                                event.key !== "Enter" ||
+                                (event.shiftKey && event.key === "Enter")
+                            )
+                                return;
+                            event.stopPropagation();
+                            event.preventDefault();
+                            handleInputChange();
                         }}
                         onBlur={handleInputChange}
                         style={{
@@ -92,7 +99,6 @@ export const Checklist: React.FC<Props> = ({
                             flexGrow: 1,
                         }}
                         placeholder={strings.noteScreen.newCheckboxPlaceholder}
-                        borderless
                     />
                 </Checkbox>
             )}

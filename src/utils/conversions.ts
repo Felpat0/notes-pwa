@@ -12,5 +12,6 @@ export const toNoteFromLocalStorage = (note: any): Note => {
 export const toChecklistTypeFromLocalStorage = (item: any) => {
     return {
         ...item,
+        showDate: new Date(item.showDate),
     };
 };
