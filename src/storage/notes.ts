@@ -100,7 +100,7 @@ export const deleteNote = (id: Note["id"]): Note[] => {
 export const getNextNoteId = (): number => {
     let notes: Note[] = JSON.parse(localStorage.getItem("notes") || "[]");
     if (notes.length === 0) return 1;
-    notes.sort((a, b) => b.id - a.id);
+    notes.sort((a, b) => a.id - b.id);
 
     return notes[notes.length - 1].id + 1;
 };
