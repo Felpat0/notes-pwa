@@ -1,6 +1,6 @@
 export const colors = {
     skyblue1: "#7CDEDC",
-    blue1: "#090622",
+    blue1: "#120f2b",
     blue2: "#006494",
     blue3: "#025076",
     purple1: "#A9B3CE",
