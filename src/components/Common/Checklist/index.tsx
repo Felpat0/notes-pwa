@@ -1,5 +1,6 @@
 import { useCallback, useState } from "react";
 import { CSSProperties } from "styled-components";
+import { themeColors } from "../../../assets/theme";
 import { strings } from "../../../localization/strings";
 import { ChecklistType } from "../../../types";
 import { Checkbox } from "../Checkbox";
@@ -73,7 +74,13 @@ export const Checklist: React.FC<Props> = ({
                                 e.target.value
                             )
                         }
-                        style={{ maxWidth: "55vw", minWidth: "55vw" }}
+                        style={{
+                            maxWidth: "55vw",
+                            minWidth: "55vw",
+                            textDecoration: checklistItem.checked
+                                ? "line-through"
+                                : "none",
+                        }}
                     />
                 </Checkbox>
             ))}
