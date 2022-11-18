@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/notes-pwa/static/css/main.265fc388.css",
-    "main.js": "/notes-pwa/static/js/main.60d6308a.js",
+    "main.js": "/notes-pwa/static/js/main.50fac392.js",
     "static/js/787.b5b54f41.chunk.js": "/notes-pwa/static/js/787.b5b54f41.chunk.js",
     "service-worker.js": "/notes-pwa/service-worker.js",
     "static/media/HelveticaNeueIt.ttf": "/notes-pwa/static/media/HelveticaNeueIt.105126d0fc7da1f6c541.ttf",
@@ -20,11 +20,11 @@
     "static/media/DrawerIcon.svg": "/notes-pwa/static/media/DrawerIcon.7daa3cc058c927a05591e78576c43ee3.svg",
     "static/media/AddIcon.svg": "/notes-pwa/static/media/AddIcon.e05956d740e16d9be33e4d0562f0936e.svg",
     "main.265fc388.css.map": "/notes-pwa/static/css/main.265fc388.css.map",
-    "main.60d6308a.js.map": "/notes-pwa/static/js/main.60d6308a.js.map",
+    "main.50fac392.js.map": "/notes-pwa/static/js/main.50fac392.js.map",
     "787.b5b54f41.chunk.js.map": "/notes-pwa/static/js/787.b5b54f41.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.265fc388.css",
-    "static/js/main.60d6308a.js"
+    "static/js/main.50fac392.js"
   ]
 }
