@@ -1,5 +1,7 @@
 import { Note } from "../types";
 
+const channel = new BroadcastChannel("notifications");
+
 export const requestNotificationPermission = async () => {
     if (Notification.permission === "granted") {
     }
@@ -11,13 +13,10 @@ export const requestNotificationPermission = async () => {
 
 export const scheduleNoteNotification = async (note: Note) => {
     if (!note.showDate) return;
-    const reg = await navigator.serviceWorker.getRegistration();
-    const timestamp = new Date(note.showDate).getTime();
-
-    reg.showNotification(note.title, {
-        tag: note.id.toString(), // a unique ID
-        //@ts-ignore
-        showTrigger: new TimestampTrigger(timestamp), // set the time for the push notification
+    channel.postMessage({
+        tag: new Date().getTime().toString(), // a unique ID
+        title: note.title,
+        date: note.showDate,
         data: {
             url: `${process.env.PUBLIC_URL}/note/${note.id}`, // pass the current url to the notification
         },
@@ -31,9 +30,8 @@ export const scheduleNoteNotification = async (note: Note) => {
 };
 
 export const sendTestNotificationSW = async (date?: Date) => {
-    const reg = await navigator.serviceWorker.getRegistration();
-
-    let options: any = {
+    channel.postMessage({
+        title: "Test",
         tag: new Date().getTime().toString(), // a unique ID
         data: {
             url: `${process.env.PUBLIC_URL}/`, // pass the current url to the notification
@@ -44,13 +42,8 @@ export const sendTestNotificationSW = async (date?: Date) => {
                 action: "open",
             },
         ],
-    };
-
-    if (date) {
-        //@ts-ignore
-        options.showTrigger = new TimestampTrigger(date.getTime());
-    }
-    reg.showNotification("Test", options);
+        date,
+    });
 };
 
 export const sendTestNotification = () => {

@@ -1,9 +1,26 @@
-self.addEventListener("install", (event) =>
-    console.log("ServiceWorker installed")
-);
+let notifications = [];
+const channel = new BroadcastChannel("notifications");
 
-self.addEventListener("push", (event) => {
-    console.log("Push event received", event);
+channel.onmessage = (event) => {
+    console.log("Received message from main thread", event.data);
+    notifications.push(event.data);
+};
+
+self.addEventListener("install", (event) => {
+    console.log("ServiceWorker installed");
+
+    setInterval(() => {
+        for (const notification of notifications) {
+            if (
+                !notification.date ||
+                notification.date.getTime() < new Date().getTime()
+            ) {
+                const { title, date, ...options } = notification;
+                self.registration.showNotification(title, options);
+                notifications = notifications.filter((n) => n !== notification);
+            }
+        }
+    }, 5000);
 });
 
 self.addEventListener("notificationclick", (event) => {
