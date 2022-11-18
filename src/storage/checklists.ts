@@ -20,9 +20,9 @@ export const getChecklist = (date: Date): ChecklistType => {
 
     const checklist: ChecklistType = checklists.find(
         (checklist: ChecklistType) =>
-            checklist.showDate.getDate() === date.getDate() &&
-            checklist.showDate.getMonth() === date.getMonth() &&
-            checklist.showDate.getFullYear() === date.getFullYear()
+            checklist.showDate?.getDate() === date.getDate() &&
+            checklist.showDate?.getMonth() === date.getMonth() &&
+            checklist.showDate?.getFullYear() === date.getFullYear()
     );
 
     if (!checklist) {
@@ -52,13 +52,7 @@ export const createOrUpdateChecklist = (
     ).map((checklist: any) => toChecklistTypeFromLocalStorage(checklist));
 
     const storedChecklistIndex = checklists.findIndex(
-        (storedChecklist: any) =>
-            checklist.showDate.getDate() ===
-                storedChecklist.showDate.getDate() &&
-            checklist.showDate.getMonth() ===
-                storedChecklist.showDate.getMonth() &&
-            checklist.showDate.getFullYear() ===
-                storedChecklist.showDate.getFullYear()
+        (storedChecklist: any) => storedChecklist.id === checklist.id
     );
 
     if (storedChecklistIndex === -1) {

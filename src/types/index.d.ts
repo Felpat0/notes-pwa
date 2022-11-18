@@ -13,7 +13,7 @@ export type ChecklistType = {
     id: number;
     title?: string;
     items: ChecklistItemType[];
-    showDate: Date;
+    showDate?: Date;
     noteId?: Note["id"];
     createdAt?: Date;
     updatedAt?: Date;
