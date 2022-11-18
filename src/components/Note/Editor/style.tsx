@@ -7,6 +7,5 @@ export const StyledQuillEditor = styled(ReactQuill)`
 
     .ql-container {
         font-size: 17px;
-        font-family: "Roboto", sans-serif;
     }
 `;

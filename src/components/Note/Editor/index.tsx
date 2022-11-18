@@ -15,6 +15,9 @@ const Modules = {
         ["link", "image"],
         ["clean"],
     ],
+    clipboard: {
+        matchVisual: false,
+    },
 };
 
 export const Editor: React.FC<Props> = ({ value, onChange }) => {
@@ -28,9 +31,9 @@ export const Editor: React.FC<Props> = ({ value, onChange }) => {
 
     return (
         <StyledQuillEditor
-            theme="snow"
+            theme={"snow"}
             value={value}
-            onChange={(newValue) => onChange(newValue)}
+            onChange={onChange}
             modules={Modules}
             ref={editorRef}
         />
