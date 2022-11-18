@@ -21,6 +21,7 @@ import {
     createOrUpdateChecklist,
     getNoteChecklist,
 } from "../../storage/checklists";
+import { scheduleNoteNotification } from "../../utils/notifications";
 
 export const NoteScreen: React.FC = () => {
     const { noteId } = useParams();
@@ -52,6 +53,32 @@ export const NoteScreen: React.FC = () => {
         });
     }, []);
 
+    const handleShowDateChange = useCallback(
+        (e: React.ChangeEvent<any>) => {
+            handleNoteChange(
+                "showDate",
+                e.target.value !== ""
+                    ? moment(e.target.value, "yyyy-MM-DDThh:mm").toDate()
+                    : undefined
+            );
+            if (
+                new Date().getTime() <
+                new Date(e.target.value).getTime() + 5000
+            )
+                scheduleNoteNotification({
+                    ...currentNote,
+                    showDate:
+                        e.target.value !== ""
+                            ? moment(
+                                  e.target.value,
+                                  "yyyy-MM-DDThh:mm"
+                              ).toDate()
+                            : undefined,
+                });
+        },
+        [currentNote, handleNoteChange]
+    );
+
     const handleChecklistChange = useCallback((checklist: ChecklistType) => {
         setCurrentChecklist(createOrUpdateChecklist(checklist));
     }, []);
@@ -77,23 +104,13 @@ export const NoteScreen: React.FC = () => {
                             value={
                                 currentNote.showDate
                                     ? moment(currentNote.showDate).format(
-                                          "yyyy-MM-DD"
+                                          "yyyy-MM-DDThh:mm"
                                       )
                                     : ""
                             }
-                            onChange={(e) =>
-                                handleNoteChange(
-                                    "showDate",
-                                    e.target.value !== ""
-                                        ? moment(
-                                              e.target.value,
-                                              "yyyy-MM-DD"
-                                          ).toDate()
-                                        : undefined
-                                )
-                            }
+                            onChange={handleShowDateChange}
                             placeholder={strings.noteScreen.noteShowDate}
-                            type={"date"}
+                            type={"datetime-local"}
                             borderless
                         />
                     </ShowDateContainer>

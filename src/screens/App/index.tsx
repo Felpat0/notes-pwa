@@ -11,6 +11,7 @@ import { Button } from "../../components/Common/Button";
 import { strings } from "../../localization/strings";
 import { inputModal } from "../../components/Common/InputModal";
 import { getUsername, setUsername } from "../../storage/user";
+import { requestNotificationPermission } from "../../utils/notifications";
 
 function App() {
     const { waitingWorker, showReload, reloadPage } = useServiceWorker();
@@ -39,10 +40,10 @@ function App() {
                 style: { padding: "calc(1rem + 1vw)" },
             });
         }
+        requestNotificationPermission();
     }, [reloadPage]);
 
     useEffect(() => {
-        console.log("useEffect ServiceWorker", showReload, waitingWorker);
         if (showReload && waitingWorker) {
             toast.success(
                 <div
