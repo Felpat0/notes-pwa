@@ -12,10 +12,15 @@ import {
 } from "./style";
 import { useNavigate, useParams } from "react-router-dom";
 import { strings } from "../../localization/strings";
-import { Note } from "../../types";
+import { ChecklistType, Note } from "../../types";
 import { Editor } from "../../components/Note/Editor";
 import { getOrCreateEmptyNote, getNote, updateNote } from "../../storage/notes";
 import { Datepicker } from "../../components/Common/Datepicker";
+import { Checklist } from "../../components/Common/Checklist";
+import {
+    createOrUpdateChecklist,
+    getNoteChecklist,
+} from "../../storage/checklists";
 
 export const NoteScreen: React.FC = () => {
     const { noteId } = useParams();
@@ -23,13 +28,16 @@ export const NoteScreen: React.FC = () => {
     const notesReducer = useSelector((state: State) => state.notes);
 
     const [currentNote, setCurrentNote] = useState<Note>();
+    const [currentChecklist, setCurrentChecklist] = useState<ChecklistType>();
 
     useEffect(() => {
         if (noteId === "new") {
             const newNote = getOrCreateEmptyNote(noteId);
             setCurrentNote(newNote);
+            setCurrentChecklist(getNoteChecklist(newNote.id));
         } else {
             setCurrentNote(getNote(parseInt(noteId)));
+            setCurrentChecklist(getNoteChecklist(parseInt(noteId)));
         }
     }, [noteId, notesReducer.notes, navigate]);
 
@@ -42,6 +50,10 @@ export const NoteScreen: React.FC = () => {
             updateNote(updatedNote);
             return updatedNote;
         });
+    }, []);
+
+    const handleChecklistChange = useCallback((checklist: ChecklistType) => {
+        setCurrentChecklist(createOrUpdateChecklist(checklist));
     }, []);
 
     return (
@@ -85,6 +97,10 @@ export const NoteScreen: React.FC = () => {
                             borderless
                         />
                     </ShowDateContainer>
+                    <Checklist
+                        checklist={currentChecklist}
+                        onChange={handleChecklistChange}
+                    />
                     <NoteScreenEditorContainer>
                         <Editor
                             value={currentNote.content}

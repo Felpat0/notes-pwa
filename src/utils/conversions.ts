@@ -1,4 +1,4 @@
-import { Note } from "../types";
+import { ChecklistType, Note } from "../types";
 
 export const toNoteFromLocalStorage = (note: any): Note => {
     return {
@@ -9,7 +9,7 @@ export const toNoteFromLocalStorage = (note: any): Note => {
     };
 };
 
-export const toChecklistTypeFromLocalStorage = (item: any) => {
+export const toChecklistTypeFromLocalStorage = (item: any): ChecklistType => {
     return {
         ...item,
         showDate: new Date(item.showDate),

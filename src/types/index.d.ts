@@ -3,6 +3,7 @@ export type Note = {
     title: string;
     content: string;
     showDate?: Date;
+    checklist?: ChecklistType;
     createdAt: Date;
     updatedAt: Date;
     projectId?: number;
@@ -13,6 +14,7 @@ export type ChecklistType = {
     title?: string;
     items: ChecklistItemType[];
     showDate: Date;
+    noteId?: Note["id"];
     createdAt?: Date;
     updatedAt?: Date;
 };

@@ -1,5 +1,17 @@
-import { ChecklistType } from "../types";
+import { ChecklistType, Note } from "../types";
 import { toChecklistTypeFromLocalStorage } from "../utils/conversions";
+
+export const getEmptyChecklist = (
+    showDate?: Date,
+    noteId?: Note["id"]
+): ChecklistType => {
+    return {
+        id: getNextChecklistTypeId(),
+        showDate,
+        noteId,
+        items: [],
+    };
+};
 
 export const getChecklist = (date: Date): ChecklistType => {
     let checklists: ChecklistType[] = JSON.parse(
@@ -14,12 +26,21 @@ export const getChecklist = (date: Date): ChecklistType => {
     );
 
     if (!checklist) {
-        return {
-            id: getNextChecklistTypeId(),
-            showDate: date,
-            items: [],
-        };
+        return getEmptyChecklist(date);
     }
+    return checklist;
+};
+
+export const getNoteChecklist = (noteId: number): ChecklistType => {
+    let checklists: ChecklistType[] = JSON.parse(
+        localStorage.getItem("checklists") || "[]"
+    ).map((checklist: any) => toChecklistTypeFromLocalStorage(checklist));
+
+    const checklist: ChecklistType = checklists.find(
+        (checklist: ChecklistType) => checklist.noteId === noteId
+    );
+
+    if (!checklist) return getEmptyChecklist(undefined, noteId);
     return checklist;
 };
 
