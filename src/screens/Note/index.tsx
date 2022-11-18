@@ -1,5 +1,4 @@
 import { useCallback, useEffect, useState } from "react";
-import moment from "moment";
 import "react-quill/dist/quill.snow.css";
 import { useSelector } from "react-redux";
 import { State } from "../../types/redux";
@@ -54,26 +53,12 @@ export const NoteScreen: React.FC = () => {
     }, []);
 
     const handleShowDateChange = useCallback(
-        (e: React.ChangeEvent<any>) => {
-            handleNoteChange(
-                "showDate",
-                e.target.value !== ""
-                    ? moment(e.target.value, "yyyy-MM-DDThh:mm").toDate()
-                    : undefined
-            );
-            if (
-                new Date().getTime() <
-                new Date(e.target.value).getTime() + 5000
-            )
+        (date: Date) => {
+            handleNoteChange("showDate", date);
+            if (date.getTime() > new Date().getTime() + 5000)
                 scheduleNoteNotification({
                     ...currentNote,
-                    showDate:
-                        e.target.value !== ""
-                            ? moment(
-                                  e.target.value,
-                                  "yyyy-MM-DDThh:mm"
-                              ).toDate()
-                            : undefined,
+                    showDate: date,
                 });
         },
         [currentNote, handleNoteChange]
@@ -101,17 +86,13 @@ export const NoteScreen: React.FC = () => {
                             {strings.noteScreen.noteShowDate}
                         </ShowDateText>
                         <Datepicker
-                            value={
-                                currentNote.showDate
-                                    ? moment(currentNote.showDate).format(
-                                          "yyyy-MM-DDThh:mm"
-                                      )
-                                    : ""
-                            }
+                            selected={currentNote.showDate}
                             onChange={handleShowDateChange}
-                            placeholder={strings.noteScreen.noteShowDate}
-                            type={"datetime-local"}
-                            borderless
+                            dateFormat={"dd/MM/yyyy HH:mm"}
+                            showTimeInput
+                            withPortal
+                            //placeholder={strings.noteScreen.noteShowDate}
+                            //borderless
                         />
                     </ShowDateContainer>
                     <Checklist

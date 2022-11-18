@@ -29,3 +29,30 @@ export const scheduleNoteNotification = async (note: Note) => {
         ],
     });
 };
+
+export const sendTestNotificationSW = async (date?: Date) => {
+    const reg = await navigator.serviceWorker.getRegistration();
+
+    let options: any = {
+        tag: new Date().getTime().toString(), // a unique ID
+        data: {
+            url: `${process.env.PUBLIC_URL}/`, // pass the current url to the notification
+        },
+        actions: [
+            {
+                title: "Open",
+                action: "open",
+            },
+        ],
+    };
+
+    if (date) {
+        //@ts-ignore
+        options.showTrigger = new TimestampTrigger(date.getTime());
+    }
+    reg.showNotification("Test", options);
+};
+
+export const sendTestNotification = () => {
+    new Notification("Test");
+};

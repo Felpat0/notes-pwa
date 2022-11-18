@@ -1,4 +1,3 @@
-import moment from "moment";
 import { useState, useCallback } from "react";
 import { strings } from "../../../localization/strings";
 import {
@@ -31,15 +30,10 @@ export const HomeChecklist: React.FC = () => {
             title={strings.home.checklist}
             rightIcon={
                 <Datepicker
-                    value={moment(selectedDate).format("yyyy-MM-DD")}
-                    onChange={(e) =>
-                        onDateChange(
-                            moment(e.target.value, "yyy-MM-DD").toDate()
-                        )
-                    }
-                    type={"date"}
-                    style={{ fontSize: "1rem" }}
-                    borderless
+                    selected={selectedDate}
+                    onChange={onDateChange}
+                    dateFormat={"dd/MM/yyyy"}
+                    withPortal
                 />
             }
             closable

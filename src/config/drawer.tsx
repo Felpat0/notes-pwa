@@ -33,4 +33,8 @@ export const drawerItems = [
         path: "note/new",
         icon: <Add />,
     },
+    {
+        text: "TEST",
+        path: "test",
+    },
 ];

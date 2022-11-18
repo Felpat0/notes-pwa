@@ -12,6 +12,7 @@ import { strings } from "../../localization/strings";
 import { inputModal } from "../../components/Common/InputModal";
 import { getUsername, setUsername } from "../../storage/user";
 import { requestNotificationPermission } from "../../utils/notifications";
+import { TestScreen } from "../Test";
 
 function App() {
     const { waitingWorker, showReload, reloadPage } = useServiceWorker();
@@ -76,6 +77,10 @@ function App() {
                         <Route
                             path={"/notes-pwa/note/:noteId"}
                             element={<NoteScreen />}
+                        />
+                        <Route
+                            path={"/notes-pwa/test"}
+                            element={<TestScreen />}
                         />
                     </Route>
                 </Routes>
