@@ -16,6 +16,7 @@ export const ProjectElementContainer = styled.div`
 
     &:hover {
         background-color: ${themeColors.SectionElementBackgroundHover};
+        transition: 0.3s;
     }
 `;
 

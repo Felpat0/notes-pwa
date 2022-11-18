@@ -16,6 +16,7 @@ export const NoteElementContainer = styled.div`
 
     &:hover {
         background-color: ${themeColors.noteElementBackgroundHover};
+        transition: 0.3s;
     }
 `;
 

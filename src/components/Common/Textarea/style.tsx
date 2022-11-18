@@ -20,5 +20,7 @@ export const StyledTextarea = styled.textarea`
         ::-webkit-resizer {
             display: block;
         }
+
+        transition: 0.3s;
     }
 `;
