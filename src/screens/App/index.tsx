@@ -70,18 +70,15 @@ function App() {
     return (
         <Provider store={store}>
             <Toaster position={"bottom-center"} />
-            <BrowserRouter>
+            <BrowserRouter basename={"/notes-pwa"}>
                 <Routes>
-                    <Route path={"/notes-pwa"} element={<AppLayout />}>
-                        <Route path={"/notes-pwa/"} element={<Home />} />
+                    <Route path={"/"} element={<AppLayout />}>
+                        <Route path={"/"} element={<Home />} />
                         <Route
-                            path={"/notes-pwa/note/:noteId"}
+                            path={"/note/:noteId"}
                             element={<NoteScreen />}
                         />
-                        <Route
-                            path={"/notes-pwa/test"}
-                            element={<TestScreen />}
-                        />
+                        <Route path={"/test"} element={<TestScreen />} />
                     </Route>
                 </Routes>
             </BrowserRouter>
