@@ -4,10 +4,9 @@ import { Home } from "../Home";
 import { NoteScreen } from "../Note";
 import { Provider } from "react-redux";
 import { store } from "../../redux/store";
-import toast, { Toaster } from "react-hot-toast";
+import { Toaster } from "react-hot-toast";
 import { useServiceWorker } from "../../hooks/useServiceWorker";
 import { useEffect } from "react";
-import { Button } from "../../components/Common/Button";
 import { strings } from "../../localization/strings";
 import { inputModal } from "../../components/Common/InputModal";
 import { getUsername, setUsername } from "../../storage/user";
@@ -15,7 +14,7 @@ import { requestNotificationPermission } from "../../utils/notifications";
 import { TestScreen } from "../Test";
 
 function App() {
-    const { waitingWorker, showReload, reloadPage } = useServiceWorker();
+    const { reloadPage } = useServiceWorker();
 
     useEffect(() => {
         if (!getUsername()) {
@@ -44,7 +43,7 @@ function App() {
         requestNotificationPermission();
     }, [reloadPage]);
 
-    useEffect(() => {
+    /* useEffect(() => {
         if (showReload && waitingWorker) {
             toast.success(
                 <div
@@ -65,7 +64,7 @@ function App() {
                 }
             );
         }
-    }, [waitingWorker, showReload, reloadPage]);
+    }, [waitingWorker, showReload, reloadPage]); */
 
     return (
         <Provider store={store}>
