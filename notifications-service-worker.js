@@ -10,6 +10,7 @@ self.addEventListener("install", (event) => {
     console.log("ServiceWorker installed");
 
     setInterval(() => {
+        console.log(notifications);
         for (const notification of notifications) {
             if (
                 !notification.date ||
