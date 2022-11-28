@@ -19,6 +19,7 @@ export const scheduleNoteNotification = async (note: Note) => {
         date: note.showDate,
         data: {
             url: `${process.env.PUBLIC_URL}/note/${note.id}`, // pass the current url to the notification
+            noteId: note.id,
         },
         actions: [
             {
