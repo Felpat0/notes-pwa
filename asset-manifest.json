@@ -1,16 +1,9 @@
 {
   "files": {
-    "main.css": "/notes-pwa/static/css/main.469de376.css",
-    "main.js": "/notes-pwa/static/js/main.e829e635.js",
+    "main.css": "/notes-pwa/static/css/main.a6dd7958.css",
+    "main.js": "/notes-pwa/static/js/main.3f785f71.js",
     "static/js/787.b5b54f41.chunk.js": "/notes-pwa/static/js/787.b5b54f41.chunk.js",
     "service-worker.js": "/notes-pwa/service-worker.js",
-    "static/media/HelveticaNeueIt.ttf": "/notes-pwa/static/media/HelveticaNeueIt.105126d0fc7da1f6c541.ttf",
-    "static/media/HelveticaNeue.ttf": "/notes-pwa/static/media/HelveticaNeue.50a6cd509ab1a89a5956.ttf",
-    "static/media/HelveticaNeue Thin.ttf": "/notes-pwa/static/media/HelveticaNeue Thin.c4606aee9e3d876bc645.ttf",
-    "static/media/HelveticaNeueLt.ttf": "/notes-pwa/static/media/HelveticaNeueLt.81d0ae0c15333948a37d.ttf",
-    "static/media/HelveticaNeueHv.ttf": "/notes-pwa/static/media/HelveticaNeueHv.1240cfcc2c689b6ab4bd.ttf",
-    "static/media/Helvetica Neu Bold.ttf": "/notes-pwa/static/media/Helvetica Neu Bold.61acdee6f288cddccf23.ttf",
-    "static/media/HelveticaNeue BlackCond.ttf": "/notes-pwa/static/media/HelveticaNeue BlackCond.86293d939b4e7834f1ee.ttf",
     "static/media/SquareBackground.svg": "/notes-pwa/static/media/SquareBackground.4c1c076e88d505b13fe7b5317ba883aa.svg",
     "static/media/OptionsIcon.svg": "/notes-pwa/static/media/OptionsIcon.e1b461f9a25718883f674a420a16aa59.svg",
     "index.html": "/notes-pwa/index.html",
@@ -19,12 +12,12 @@
     "static/media/TrashIcon.svg": "/notes-pwa/static/media/TrashIcon.eb6d90241c02c31d90dd4912f7b8e6a0.svg",
     "static/media/DrawerIcon.svg": "/notes-pwa/static/media/DrawerIcon.7daa3cc058c927a05591e78576c43ee3.svg",
     "static/media/AddIcon.svg": "/notes-pwa/static/media/AddIcon.e05956d740e16d9be33e4d0562f0936e.svg",
-    "main.469de376.css.map": "/notes-pwa/static/css/main.469de376.css.map",
-    "main.e829e635.js.map": "/notes-pwa/static/js/main.e829e635.js.map",
+    "main.a6dd7958.css.map": "/notes-pwa/static/css/main.a6dd7958.css.map",
+    "main.3f785f71.js.map": "/notes-pwa/static/js/main.3f785f71.js.map",
     "787.b5b54f41.chunk.js.map": "/notes-pwa/static/js/787.b5b54f41.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.469de376.css",
-    "static/js/main.e829e635.js"
+    "static/css/main.a6dd7958.css",
+    "static/js/main.3f785f71.js"
   ]
 }
