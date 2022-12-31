@@ -30,7 +30,12 @@ export const drawerItems = [
     },
     {
         text: strings.drawer.createNote,
-        path: "note/new",
+        path: "notes/new",
+        icon: <Add />,
+    },
+    {
+        text: strings.drawer.createProject,
+        path: "projects/new",
         icon: <Add />,
     },
     {

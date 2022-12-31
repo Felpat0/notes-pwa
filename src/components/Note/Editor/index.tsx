@@ -1,4 +1,5 @@
 import { useEffect, useRef } from "react";
+import ReactQuill from "react-quill";
 import { StyledQuillEditor } from "./style";
 
 type Props = {
@@ -21,7 +22,7 @@ const Modules = {
 };
 
 export const Editor: React.FC<Props> = ({ value, onChange }) => {
-    const editorRef = useRef<any>(null);
+    const editorRef = useRef<ReactQuill>(null);
 
     useEffect(() => {
         if (editorRef.current) {

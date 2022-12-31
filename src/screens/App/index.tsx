@@ -12,6 +12,7 @@ import { inputModal } from "../../components/Common/InputModal";
 import { getUsername, setUsername } from "../../storage/user";
 import { requestNotificationPermission } from "../../utils/notifications";
 import { TestScreen } from "../Test";
+import { ProjectsScreen } from "../Projects";
 
 function App() {
     const { reloadPage } = useServiceWorker();
@@ -74,8 +75,12 @@ function App() {
                     <Route path={"/"} element={<AppLayout />}>
                         <Route path={"/"} element={<Home />} />
                         <Route
-                            path={"/note/:noteId"}
+                            path={"/notes/:noteId"}
                             element={<NoteScreen />}
+                        />
+                        <Route
+                            path={"/projects"}
+                            element={<ProjectsScreen />}
                         />
                         <Route path={"/test"} element={<TestScreen />} />
                     </Route>

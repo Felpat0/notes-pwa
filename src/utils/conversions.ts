@@ -1,4 +1,14 @@
-import { ChecklistType, Note } from "../types";
+import { ChecklistType, Note, Project } from "../types";
+
+export const toProjectFromLocalStorage = (project: any): Project => {
+    return {
+        id: project.id,
+        name: project.name,
+        notes: project.notes.map((note: any) => toNoteFromLocalStorage(note)),
+        createdAt: new Date(project.createdAt),
+        updatedAt: new Date(project.updatedAt),
+    };
+};
 
 export const toNoteFromLocalStorage = (note: any): Note => {
     return {

@@ -1,13 +1,20 @@
-import { Note } from "../types";
+import { Note, Project } from "../types";
 import { toNoteFromLocalStorage } from "../utils/conversions";
 import { isNoteEmpty } from "../utils/notes";
 
-export const getNotes = (page: number = 1, limit: number = 10): Note[] => {
-    const notes: Note[] = JSON.parse(localStorage.getItem("notes") || "[]").map(
+export const getNotes = (
+    page: number = 1,
+    limit: number = 10,
+    projectId?: Project["id"]
+): Note[] => {
+    let notes: Note[] = JSON.parse(localStorage.getItem("notes") || "[]").map(
         (note: any) => toNoteFromLocalStorage(note)
     );
-
+    if (projectId) {
+        notes = notes.filter((note) => note.projectId === projectId);
+    }
     const offset = (page - 1) * limit;
+
     return notes
         .sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime())
         .slice(offset, offset + limit);

@@ -23,6 +23,8 @@ export type Project = {
     id: number;
     name: string;
     notes?: Note[];
+    createdAt?: Date;
+    updatedAt?: Date;
 };
 
 export type ChecklistItemType = {

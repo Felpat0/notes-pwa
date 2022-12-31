@@ -23,7 +23,7 @@ export const StyledDatepicker = styled(ReactDatePicker)`
     box-sizing: border-box; /* Opera/IE 8+ */
 
     font-size: 1rem;
-    font-weight: 500;
+    font-weight: bold;
     min-width: 100%;
     &::-webkit-calendar-picker-indicator {
         filter: invert(1);

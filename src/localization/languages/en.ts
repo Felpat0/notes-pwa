@@ -30,14 +30,23 @@ export const en = {
         newCheckboxPlaceholder:
             "Type here and press enter to add a new checkbox item",
     },
+    projectsScreen: {
+        projects: "Projects",
+        newProject: "New Project",
+        noProjects: "There are no projects, create one!",
+        createProject: "Create Project",
+    },
     drawer: {
         home: "Home",
         createNote: "Create note",
+        createProject: "Create project",
     },
     alerts: {
         deleteNote: "Are you sure you want to delete this note?",
+        deleteProject: "Are you sure you want to delete this project?",
     },
     toasts: {
         noteDeleted: "Note deleted successfully",
+        projectDeleted: "Project deleted successfully",
     },
 };

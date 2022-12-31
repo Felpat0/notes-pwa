@@ -21,6 +21,7 @@ import { confirmAlert } from "../../components/Common/ConfirmModal";
 import { getNotes, getTodaysNotes, deleteNote } from "../../storage/notes";
 import { getUsername } from "../../storage/user";
 import { HomeChecklist } from "../../components/Home/HomeChecklist";
+import { SectionElement } from "../../components/Common/SectionElement";
 
 export const Home: React.FC = () => {
     const navigate = useNavigate();
@@ -76,6 +77,10 @@ export const Home: React.FC = () => {
         [handleDeleteNote]
     );
 
+    const handleProjectsClick = useCallback(() => {
+        navigate("/projects");
+    }, [navigate]);
+
     return (
         <HomeContainer>
             <GreetingText>{strings.home.greeting}</GreetingText>
@@ -122,7 +127,10 @@ export const Home: React.FC = () => {
                     )}
                 </>
             )}
-            {/* <SectionElement title={strings.home.checklists} /> */}
+            <SectionElement
+                title={strings.home.projects}
+                onClick={handleProjectsClick}
+            />
             <Section
                 title={strings.home.notes}
                 rightIcon={
