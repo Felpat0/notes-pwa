@@ -41,7 +41,7 @@ export const NoteScreen: React.FC = () => {
         }
     }, [noteId, notesReducer.notes, navigate]);
 
-    const handleNoteChange = useCallback((key: string, value: any) => {
+    const handleNoteChange = useCallback((key: keyof Note, value: any) => {
         setCurrentNote((prev) => {
             const updatedNote = {
                 ...prev,
@@ -66,6 +66,7 @@ export const NoteScreen: React.FC = () => {
 
     const handleChecklistChange = useCallback((checklist: ChecklistType) => {
         setCurrentChecklist(createOrUpdateChecklist(checklist));
+        handleNoteChange("checklist", checklist);
     }, []);
 
     return (

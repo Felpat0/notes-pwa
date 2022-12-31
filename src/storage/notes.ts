@@ -1,6 +1,7 @@
 import { Note, Project } from "../types";
 import { toNoteFromLocalStorage } from "../utils/conversions";
 import { isNoteEmpty } from "../utils/notes";
+import { deleteChecklist } from "./checklists";
 
 export const getNotes = (
     page: number = 1,
@@ -98,6 +99,9 @@ export const createOrUpdateNote = (note: Note) => {
 export const deleteNote = (id: Note["id"]): Note[] => {
     const notes: Note[] = JSON.parse(localStorage.getItem("notes") || "[]");
     const index = notes.findIndex((n) => n.id === id);
+    //Delete the related checklist
+    deleteChecklist(notes[index].checklist?.id);
+    //Delete the note
     notes.splice(index, 1);
     localStorage.setItem("notes", JSON.stringify(notes));
 

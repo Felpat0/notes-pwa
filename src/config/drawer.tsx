@@ -32,7 +32,7 @@ export const drawerItems = [
         text: strings.drawer.createNote,
         path: "notes/new",
         icon: <Add />,
-    },
+    } /* 
     {
         text: strings.drawer.createProject,
         path: "projects/new",
@@ -41,5 +41,5 @@ export const drawerItems = [
     {
         text: "TEST",
         path: "test",
-    },
+    }, */,
 ];

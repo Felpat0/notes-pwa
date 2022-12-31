@@ -127,10 +127,10 @@ export const Home: React.FC = () => {
                     )}
                 </>
             )}
-            <SectionElement
+            {/* <SectionElement
                 title={strings.home.projects}
                 onClick={handleProjectsClick}
-            />
+            /> */}
             <Section
                 title={strings.home.notes}
                 rightIcon={

@@ -81,7 +81,7 @@ export const getNextChecklistTypeId = (): number => {
         localStorage.getItem("checklists") || "[]"
     );
     if (checklists.length === 0) return 1;
-    checklists.sort((a, b) => b.id - a.id);
+    checklists.sort((a, b) => a.id - b.id);
 
     return checklists[checklists.length - 1].id + 1;
 };
