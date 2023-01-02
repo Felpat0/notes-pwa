@@ -1,3 +1,4 @@
+import { forwardRef } from "react";
 import { InputContainer, InputIconContainer, StyledInput } from "./style";
 
 type Props = React.InputHTMLAttributes<any> & {
@@ -5,10 +6,12 @@ type Props = React.InputHTMLAttributes<any> & {
     Icon?: React.FunctionComponent<React.SVGProps<SVGSVGElement>> | string;
 };
 
-export const Input: React.FC<Props> = ({ Icon, ...props }) => {
+type Ref = HTMLInputElement;
+
+export const Input = forwardRef<Ref, Props>(({ Icon, ...props }, ref) => {
     return (
         <InputContainer>
-            <StyledInput {...props} />
+            <StyledInput {...props} ref={ref} />
             {Icon && (
                 <InputIconContainer>
                     {typeof Icon === "string" ? (
@@ -24,4 +27,4 @@ export const Input: React.FC<Props> = ({ Icon, ...props }) => {
             )}
         </InputContainer>
     );
-};
+});

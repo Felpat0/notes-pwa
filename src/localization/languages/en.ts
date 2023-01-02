@@ -35,6 +35,7 @@ export const en = {
         newProject: "New Project",
         noProjects: "There are no projects, create one!",
         createProject: "Create Project",
+        projectName: "Project's name",
     },
     drawer: {
         home: "Home",

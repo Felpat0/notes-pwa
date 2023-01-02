@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { createRoot } from "react-dom/client";
 import { strings } from "../../../localization/strings";
 import { Button } from "../Button";
@@ -13,22 +13,33 @@ type Props = {
     style?: React.CSSProperties;
 };
 
-export const ConfirmModal: React.FC<Props> = ({
+export const InputModal: React.FC<Props> = ({
     message,
     onConfirm,
     onCancel,
     style,
 }) => {
     const [value, setValue] = useState("");
+    const inputRef = useRef<any>();
+
+    useEffect(() => {
+        if (inputRef.current) {
+            inputRef.current.focus();
+        }
+    }, [inputRef]);
 
     return (
-        <Modal isOpen={true} style={style}>
+        <Modal isOpen={true} style={{ padding: "1rem", ...style }}>
             {typeof message === "string" ? (
                 <InputModalMessage>{message}</InputModalMessage>
             ) : (
                 <>{message}</>
             )}
-            <Input value={value} onChange={(e) => setValue(e.target.value)} />
+            <Input
+                value={value}
+                onChange={(e) => setValue(e.target.value)}
+                ref={inputRef}
+            />
             <ButtonsContainer>
                 {onCancel && (
                     <Button variant={"secondary"} onClick={onCancel}>
@@ -50,7 +61,7 @@ const createElement = (properties: Props) => {
     if (target) {
         root = createRoot(target);
         root.render(
-            <ConfirmModal
+            <InputModal
                 {...properties}
                 onConfirm={(value) => {
                     properties.onConfirm(value);
@@ -68,7 +79,7 @@ const createElement = (properties: Props) => {
         document.body.appendChild(target);
         root = createRoot(target);
         root.render(
-            <ConfirmModal
+            <InputModal
                 {...properties}
                 onConfirm={(value) => {
                     properties.onConfirm(value);

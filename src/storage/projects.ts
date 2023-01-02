@@ -1,9 +1,19 @@
 import { Project } from "../types";
 import { toProjectFromLocalStorage } from "../utils/conversions";
 
-export const getProjects = (): Project[] => {
-    const projects = JSON.parse(localStorage.getItem("projects") || "[]");
-    return projects.map((project) => toProjectFromLocalStorage(project));
+export const getProjects = (
+    page: number = 1,
+    limit: number = 10
+): Project[] => {
+    const projects: Project[] = JSON.parse(
+        localStorage.getItem("projects") || "[]"
+    );
+    const offset = (page - 1) * limit;
+
+    return projects
+        .map((project) => toProjectFromLocalStorage(project))
+        .sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime())
+        .slice(offset, offset + limit);
 };
 
 export const getProject = (id: Project["id"]): Project | undefined => {
@@ -11,18 +21,26 @@ export const getProject = (id: Project["id"]): Project | undefined => {
     return projects.find((project) => project.id === id);
 };
 
-export const getOrCreateEmptyProject = (id: Project["id"]): Project => {
+export const getOrCreateEmptyProject = (
+    name: Project["name"],
+    id?: Project["id"] | "new"
+): Project => {
+    if (!id || id === "new") {
+        const project = {
+            id: getNextProjectId(),
+            name,
+            notes: [],
+            createdAt: new Date(),
+            updatedAt: new Date(),
+        };
+        createProject(project);
+
+        return project;
+    }
     const project = getProject(id);
     if (project) {
         return project;
     }
-    return {
-        id,
-        name: "",
-        notes: [],
-        createdAt: new Date(),
-        updatedAt: new Date(),
-    };
 };
 
 export const createProject = (project: Project): Project[] => {
@@ -73,5 +91,6 @@ export const getNextProjectId = (): Project["id"] => {
         localStorage.getItem("projects") || "[]"
     );
     const ids = projects.map((project) => project.id);
+    if (ids.length === 0) return 1;
     return Math.max(...ids) + 1;
 };

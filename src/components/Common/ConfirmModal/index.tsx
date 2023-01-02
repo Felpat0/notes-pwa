@@ -16,7 +16,7 @@ export const ConfirmModal: React.FC<Props> = ({
     onCancel,
 }) => {
     return (
-        <Modal isOpen={true}>
+        <Modal isOpen={true} style={{ padding: "1rem" }}>
             <ConfirmModalMessage>{message}</ConfirmModalMessage>
             <ButtonsContainer>
                 <Button variant={"secondary"} onClick={onCancel}>
