@@ -37,6 +37,7 @@ self.addEventListener("notificationclick", (event) => {
 
 self.addEventListener("fetch", function (event) {
     console.log("Registering fetch listener");
+    if (event.request.url.indexOf("http") !== 0) return;
     event.respondWith(
         caches.match(event.request).then(function (response) {
             // Cache hit - return response
