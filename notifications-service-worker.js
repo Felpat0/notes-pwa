@@ -30,7 +30,25 @@ self.addEventListener("install", (event) => {
 });
 
 self.addEventListener("notificationclick", (event) => {
+    event.notification.close();
     // On notification click, go to the URL specified in the data
-    if (event.action === "open")
-        event.waitUntil(self.clients.openWindow(event.notification.data.url));
+    event.waitUntil(
+        clients
+            .matchAll({
+                type: "window",
+            })
+            .then((clientList) => {
+                for (const client of clientList) {
+                    if (
+                        client.url === event.notification.data.url &&
+                        "focus" in client
+                    )
+                        return client.focus();
+                }
+                if (clients.openWindow)
+                    return clients.openWindow(event.notification.data.url);
+            })
+    );
+    /* if (event.action === "open")
+        event.waitUntil(self.clients.openWindow(event.notification.data.url)); */
 });
